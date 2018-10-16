@@ -1,8 +1,8 @@
 ---
 layout:     post
 title:      "Welcome to Duniang Blog"
-subtitle:   " \"Hello World, Hello Blog\""
-date:       2015-01-29 12:00:00
+subtitle:   "Jekyll + GitPage 搭建个人Blog"
+date:       2018-10-16 15:00:00
 author:     "Duniang"
 header-img: "img/about_bg.jpg"
 tags:
