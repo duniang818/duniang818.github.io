@@ -3,7 +3,7 @@ title: Duniang
 SEOTitle: Duniang的博客 | Duniang Blog
 header-img: img/header.jpg
 email: wangyumeiej@gmail.com
-description: "关于程序 | duniang，Python, Machine & Deep Learning，妈妈 and 育儿| 这里是 @Duniang 的个人博客，与你一起发现更大的世界。"
+description: "我无聊我无趣，我搞IT，搞人工智能，深度学习，在互联网上给自己搞个门面，认识有趣的灵魂..."
 keyword: "Duniang, 度娘, Duniang的博客, Duniang Blog, 博客, 个人网站, 互联网, Python, Machine & Deep Learning, 育儿"
 url: "http://duniang818.github.io"              # your host, for absolute URL
 baseurl: ""                             # for example, '/blog' if your blog hosted on 'host/blog'
@@ -15,7 +15,7 @@ future: true
 RSS: false
 weibo_username:     度娘818
 zhihu_username:     度娘818
-github_username:    duniang
+github_username:    duniang818
 twitter_username:   duniang
 #facebook_username:  huxpro
 #linkedin_username:  firstname-lastname-idxxxx
