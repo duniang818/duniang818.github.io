@@ -103,15 +103,15 @@ page-mathjax: false
 # Friends
 friends: [
     {
-         title: "Su",
-         href: "http://su.gallery/"
+         title: "阿度",
+         href: "http://news.baidu.com/"
      },{
-#        title: "乱序",
-#        href: "http://mida.re/"
-#    },{
-#        title: "前端外刊评论",
-#        href: "http://qianduan.guru/"
-#    },{
+        title: "fq 无人驾驶",
+        href: "https://github.com/fuqiang07"
+    },{
+        title: "张俊林",
+        href: "https://blog.csdn.net/malefactor"
+    },{
 #        title: "天镶的博客",
 #        href: "http://lingyu.wang/"
 #    },{

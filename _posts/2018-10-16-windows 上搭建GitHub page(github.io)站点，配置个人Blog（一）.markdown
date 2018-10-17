@@ -1,12 +1,12 @@
 ---
 layout:     post
-title:      "Welcome to Duniang Blog"
-subtitle:   "Jekyll + GitPage 搭建个人Blog"
+title:      "Windows 10 借助Jekyll + GitPage 搭建个人Blog网站"
+subtitle:   "Blog主题借用huxblog-boilerplate-master"
 date:       2018-10-16 15:00:00
 author:     "Duniang"
 header-img: "img/about_bg.jpg"
 tags:
-    - blog
+    - Blog, Jekyll, GitPage
 ---
 
 # [GitHub page](https://pages.github.com/)

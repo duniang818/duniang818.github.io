@@ -1,0 +1,1816 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <link rel="canonical" href="https://blog.csdn.net/malefactor/article/details/78767781"/>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta name="renderer" content="webkit"/>
+    <meta name="force-rendering" content="webkit"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="referrer" content="always">
+    <meta name="description" content="/* 版权声明：可以任意转载，转载时请标明文章原始出处和作者信息 .*/
+
+                                                                                         张俊林
+
+                                                                   （..." />
+    <meta name="keywords" content="" />
+    <meta http-equiv="Cache-Control" content="no-siteapp" /><link rel="alternate" media="handheld" href="#" />
+    <meta name="shenma-site-verification" content="5a59773ab8077d4a62bf469ab966a63b_1497598848">
+    <script src="https://csdnimg.cn/release/phoenix/vendor/tingyun/tingyun-rum-blog.js"></script>
+
+    <link href="https://csdnimg.cn/public/favicon.ico" rel="SHORTCUT ICON">
+    <title>深度学习中的注意力机制(2017版) - 张俊林的博客 - CSDN博客</title>
+
+            <link rel="stylesheet" href="https://csdnimg.cn/release/phoenix/template/css/detail-25136609ce.min.css">
+        <link rel="stylesheet" href="https://csdnimg.cn/release/phoenix/themes/skin3-template/skin3-template-9b39979775.min.css">
+
+    <script type="text/javascript">
+        var username = "malefactor";
+        var blog_address = "https://blog.csdn.net/malefactor";
+        var static_host = "https://csdnimg.cn/release/phoenix/";
+        var currentUserName = "zhuce_2012";
+        var isShowAds = false;
+        var isOwner = false;
+        var loginUrl = "http://passport.csdn.net/account/login?from=https://blog.csdn.net/malefactor/article/details/78767781"
+        var blogUrl = "https://blog.csdn.net/";
+        //页面皮肤样式
+        var curSkin = "skin3-template";
+        // 第四范式所需数据
+        var articleTitles = "深度学习中的注意力机制(2017版) - 张俊林的博客";
+        var articleID = "78767781";
+
+        var nickName = "张俊林博客";
+    </script>
+    <script type="text/javascript">
+        // Traffic Stats of the entire Web site By baidu
+        var _hmt = _hmt || [];
+        (function() {
+            var hm = document.createElement("script");
+            hm.src = "https://hm.baidu.com/hm.js?6bcd52f51e9b3dce32bec4a3997715ac";
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        })();
+        // Traffic Stats of the entire Web site By baidu end
+    </script>
+    <script src="https://csdnimg.cn/public/common/libs/jquery/jquery-1.9.1.min.js" type="text/javascript"></script>
+    <script src="https://csdnimg.cn/rabbit/exposure-click/main-1.0.6.js"></script>
+    <!-- 新版上报 -->
+    <script src="//g.csdnimg.cn/track/1.1.1/track.js" type="text/javascript"></script>
+    <!-- 新版上报end -->
+            <link rel="stylesheet" href="https://csdnimg.cn/public/sandalstrap/1.4/css/sandalstrap.min.css">
+    <style>
+        .MathJax, .MathJax_Message, .MathJax_Preview{
+            display: none
+        }
+    </style>
+</head>
+<!-- nodata 第三栏接口无数据时样式不变 -->
+<body class="nodata"> 
+    <link rel="stylesheet" href="https://csdnimg.cn/public/common/toolbar/content_toolbar_css/content_toolbar.css">
+    <script id="toolbar-tpl-scriptId" src="https://csdnimg.cn/public/common/toolbar/js/content_toolbar.js" type="text/javascript" domain="https://blog.csdn.net/"></script>
+<link rel="stylesheet" href="https://csdnimg.cn/release/phoenix/template/css/blog_code-c3a0c33d5c.css">
+<link rel="stylesheet" href="https://csdnimg.cn/release/phoenix/vendor/pagination/paging.css">
+<script type="text/javascript" src="//static.mediav.com/js/mvf_news_feed.js"></script>
+<script type="text/javascript" src="//g.csdnimg.cn/copyright/1.0.3/copyright.js"></script>
+<div style="display:none;">
+	<img src="" onerror='setTimeout(function(){if(!/(csdn.net|iteye.com|baiducontent.com|googleusercontent.com|360webcache.com|sogoucdn.com|bingj.com|baidu.com)$/.test(window.location.hostname)){window.location.href="\x68\x74\x74\x70\x73\x3a\x2f\x2f\x77\x77\x77\x2e\x63\x73\x64\x6e\x2e\x6e\x65\x74"}},3000);'>
+</div>
+<link rel="stylesheet" href="https://csdnimg.cn/release/phoenix/template/css/chart-3456820cac.css" />
+
+
+
+<script src="https://dup.baidustatic.com/js/ds.js"></script>
+<div class="container clearfix" id="mainBox">
+		<!-- <div id="breadcrumbs">
+			<span><a href="https://blog.csdn.net/">博客首页</a></span>
+			<i>></i>
+			<span><a href="https://blog.csdn.net/malefactor">张俊林的博客...</a></span>
+			<i>></i>
+			<span>深度学习中的注意力机制(2017版)</span>
+		</div> -->
+		<div class="recommend-right">
+  <ul class="recommend-fixed-box">
+    
+  </ul>
+</div>
+    <main>
+        <div class="blog-content-box">
+	<div class="article-header-box">
+		<div class="article-header">
+			<div class="article-title-box">
+				<span class="article-type type-1 float-left">原</span>				<h1 class="title-article">深度学习中的注意力机制(2017版)</h1>
+			</div>
+			<div class="article-info-box">
+				<div class="article-bar-top">
+																				<span class="time">2017年12月10日 21:57:17</span>
+					<a class="follow-nickName" href="https://me.csdn.net/malefactor" target="_blank">张俊林博客</a>
+						<span class="read-count">阅读数：10691</span>
+										</div>
+				<div class="operating">
+														</div>
+			</div>
+		</div>
+	</div>
+	<article>
+		<div id="article_content" class="article_content clearfix csdn-tracking-statistics" data-pid="blog"  data-mod=popu_307  data-dsm = "post" >
+								            <link rel="stylesheet" href="https://csdnimg.cn/release/phoenix/template/css/ck_htmledit_views-e4c7a3727d.css" />
+						<div class="htmledit_views">
+                <p><span style="color:#333333;">/* 版权声明：可以任意转载，转载时请标明文章原始出处和作者信息 .*/</span></p>
+
+<p><span style="color:#333333;">                                                                                         张俊林</span></p>
+
+<p><span style="color:#333333;">                                                                   （本文2017年发表于《程序员》杂志7月刊）</span></p>
+
+<p> </p>
+
+<p>        （想更系统的学习深度学习知识？请参考：<a href="https://blog.csdn.net/malefactor/article/details/82051716" rel="nofollow">深度学习枕边书</a>）</p>
+
+<p style="margin-left:8px;">最近两年，注意力模型（Attention Model）被广泛使用在自然语言处理、图像识别及语音识别等各种不同类型的深度学习任务中，是深度学习技术中最值得关注与深入了解的核心技术之一。</p>
+
+<p style="margin-left:8px;">本文以机器翻译为例，深入浅出地介绍了深度学习中注意力机制的原理及关键计算机制，同时也抽象出其本质思想，并介绍了注意力模型在图像及语音等领域的典型应用场景。</p>
+
+<p style="margin-left:8px;">注意力模型最近几年在深度学习各个领域被广泛使用，无论是图像处理、语音识别还是自然语言处理的各种不同类型的任务中，都很容易遇到注意力模型的身影。所以，了解注意力机制的工作原理对于关注深度学习技术发展的技术人员来说有很大的必要。</p>
+
+<p> </p>
+
+<p style="margin-left:8px;"><strong>人类的视觉注意力</strong></p>
+
+<p style="margin-left:8px;">从注意力模型的命名方式看，很明显其借鉴了人类的注意力机制，因此，我们首先简单介绍人类视觉的选择性注意力机制。</p>
+
+<p><img alt="" class="has" src="https://img-blog.csdn.net/20171210213743273" /></p>
+
+<p> </p>
+
+<p><span style="color:#333333;"><span style="color:#888888;">                                          图1 人类的视觉注意力</span></span></p>
+
+<p> </p>
+
+<p> </p>
+
+<p style="margin-left:8px;">视觉注意力机制是人类视觉所特有的大脑信号处理机制。人类视觉通过快速扫描全局图像，获得需要重点关注的目标区域，也就是一般所说的注意力焦点，而后对这一区域投入更多注意力资源，以获取更多所需要关注目标的细节信息，而抑制其他无用信息。</p>
+
+<p style="margin-left:8px;">这是人类利用有限的注意力资源从大量信息中快速筛选出高价值信息的手段，是人类在长期进化中形成的一种生存机制，人类视觉注意力机制极大地提高了视觉信息处理的效率与准确性。</p>
+
+<p style="margin-left:8px;">图1形象化展示了人类在看到一副图像时是如何高效分配有限的注意力资源的，其中红色区域表明视觉系统更关注的目标，很明显对于图1所示的场景，人们会把注意力更多投入到人的脸部，文本的标题以及文章首句等位置。</p>
+
+<p style="margin-left:8px;">深度学习中的注意力机制从本质上讲和人类的选择性视觉注意力机制类似，核心目标也是从众多信息中选择出对当前任务目标更关键的信息。</p>
+
+<p style="margin-left:8px;"> </p>
+
+<p style="margin-left:8px;"><strong>Encoder-Decoder框架</strong></p>
+
+<p style="margin-left:8px;">要了解深度学习中的注意力模型，就不得不先谈Encoder-Decoder框架，因为目前大多数注意力模型附着在Encoder-Decoder框架下，当然，其实注意力模型可以看作一种通用的思想，本身并不依赖于特定框架，这点需要注意。</p>
+
+<p style="margin-left:8px;">Encoder-Decoder框架可以看作是一种深度学习领域的研究模式，应用场景异常广泛。图2是文本处理领域里常用的Encoder-Decoder框架最抽象的一种表示。</p>
+
+<p><img alt="" class="has" src="https://img-blog.csdn.net/20171210213848485" /></p>
+
+<p> </p>
+
+<p><span style="color:#333333;">                                                            <span style="color:#888888;">图2 抽象的文本处理领域的Encoder-Decoder框架</span></span></p>
+
+<p> </p>
+
+<p> </p>
+
+<p><span style="color:#333333;">文本处理领域的Encoder-Decoder框架可以这么直观地去理解：可以把它看作适合处理由一个句子（或篇章）生成另外一个句子（或篇章）的通用处理模型。对于句子对&lt;Source,Target&gt;，我们的目标是给定输入句子Source，期待通过Encoder-Decoder框架来生成目标句子Target。Source和Target可以是同一种语言，也可以是两种不同的语言。而Source和Target分别由各自的单词序列构成：</span></p>
+
+<p><span style="color:#333333;">                               <img alt="" class="has" src="https://img-blog.csdn.net/20171210214000760" /></span></p>
+
+<p><span style="color:#333333;">Encoder顾名思义就是对输入句子Source进行编码，将输入句子通过非线性变换转化为中间语义表示C：</span></p>
+
+<p><span style="color:#333333;">                                    <img alt="" class="has" src="https://img-blog.csdn.net/20171210214025924" /></span></p>
+
+<p> </p>
+
+<p style="margin-left:8px;">对于解码器Decoder来说，其任务是根据句子Source的中间语义表示C和之前已经生成的历史信息<img alt="" class="has" src="https://mmbiz.qpic.cn/mmbiz_png/ptp8P184xjxeRHqppry03SX1TTiblocHfmWtsphMCQicEO6I56oj7OvLIjlCQ2s3ho4QsLo9E2qGjOQZeWODMvDQ/640?wx_fmt=png&amp;wxfrom=5&amp;wx_lazy=1" />来生成i时刻要生成的单词<img alt="" class="has" src="https://mmbiz.qpic.cn/mmbiz_png/ptp8P184xjxeRHqppry03SX1TTiblocHf0jHv1uKJNUvxsNe1vp7DNvm6GiaGDibdc3t5QyCHK37gpiaQOjGnQDEJQ/640?wx_fmt=png&amp;wxfrom=5&amp;wx_lazy=1" />：</p>
+
+<p style="margin-left:8px;">                       <img alt="" class="has" src="https://img-blog.csdn.net/20171210214105758" /></p>
+
+<p style="margin-left:8px;"> </p>
+
+<p style="margin-left:8px;">每个yi都依次这么产生，那么看起来就是整个系统根据输入句子Source生成了目标句子Target。如果Source是中文句子，Target是英文句子，那么这就是解决机器翻译问题的Encoder-Decoder框架；如果Source是一篇文章，Target是概括性的几句描述语句，那么这是文本摘要的Encoder-Decoder框架；如果Source是一句问句，Target是一句回答，那么这是问答系统或者对话机器人的Encoder-Decoder框架。由此可见，在文本处理领域，Encoder-Decoder的应用领域相当广泛。</p>
+
+<p style="margin-left:8px;">Encoder-Decoder框架不仅仅在文本领域广泛使用，在语音识别、图像处理等领域也经常使用。比如对于语音识别来说，图2所示的框架完全适用，区别无非是Encoder部分的输入是语音流，输出是对应的文本信息；而对于“图像描述”任务来说，Encoder部分的输入是一副图片，Decoder的输出是能够描述图片语义内容的一句描述语。一般而言，文本处理和语音识别的Encoder部分通常采用RNN模型，图像处理的Encoder一般采用CNN模型。</p>
+
+<p style="margin-left:8px;"> </p>
+
+<p style="margin-left:8px;"><strong>Attention模型</strong></p>
+
+<p style="margin-left:8px;">本节先以机器翻译作为例子讲解最常见的Soft Attention模型的基本原理，之后抛离Encoder-Decoder框架抽象出了注意力机制的本质思想，然后简单介绍最近广为使用的Self Attention的基本思路。</p>
+
+<p style="margin-left:8px;"><strong>Soft Attention模型</strong></p>
+
+<p style="margin-left:8px;">图2中展示的Encoder-Decoder框架是没有体现出“注意力模型”的，所以可以把它看作是注意力不集中的分心模型。为什么说它注意力不集中呢？请观察下目标句子Target中每个单词的生成过程如下：</p>
+
+<p>                               <img alt="" class="has" src="https://img-blog.csdn.net/20171210214140453" /></p>
+
+<p style="margin-left:8px;"> </p>
+
+<p style="margin-left:8px;">其中f是Decoder的非线性变换函数。从这里可以看出，在生成目标句子的单词时，不论生成哪个单词，它们使用的输入句子Source的语义编码C都是一样的，没有任何区别。</p>
+
+<p style="margin-left:8px;">而语义编码C是由句子Source的每个单词经过Encoder 编码产生的，这意味着不论是生成哪个单词，<img alt="" class="has" src="https://mmbiz.qpic.cn/mmbiz_png/ptp8P184xjxeRHqppry03SX1TTiblocHfT1plwicmXJK1Bkzic4omk3WHlymKupMwZWyg34Smu3EN7v0syAA7wuGg/640?wx_fmt=png&amp;wxfrom=5&amp;wx_lazy=1" />还是<img alt="" class="has" src="https://mmbiz.qpic.cn/mmbiz_png/ptp8P184xjxeRHqppry03SX1TTiblocHf9o5zZ361EYGFpOFjRKcz44RudhssjuN38vgMake2pM2Npd5kBEuFaA/640?wx_fmt=png&amp;wxfrom=5&amp;wx_lazy=1" />，其实句子Source中任意单词对生成某个目标单词yi来说影响力都是相同的，这是为何说这个模型没有体现出注意力的缘由。这类似于人类看到眼前的画面，但是眼中却没有注意焦点一样。</p>
+
+<p style="margin-left:8px;">如果拿机器翻译来解释这个分心模型的Encoder-Decoder框架更好理解，比如输入的是英文句子：Tom chase Jerry，Encoder-Decoder框架逐步生成中文单词：“汤姆”，“追逐”，“杰瑞”。</p>
+
+<p style="margin-left:8px;">在翻译“杰瑞”这个中文单词的时候，分心模型里面的每个英文单词对于翻译目标单词“杰瑞”贡献是相同的，很明显这里不太合理，显然“Jerry”对于翻译成“杰瑞”更重要，但是分心模型是无法体现这一点的，这就是为何说它没有引入注意力的原因。</p>
+
+<p style="margin-left:8px;">没有引入注意力的模型在输入句子比较短的时候问题不大，但是如果输入句子比较长，此时所有语义完全通过一个中间语义向量来表示，单词自身的信息已经消失，可想而知会丢失很多细节信息，这也是为何要引入注意力模型的重要原因。</p>
+
+<p style="margin-left:8px;">上面的例子中，如果引入Attention模型的话，应该在翻译“杰瑞”的时候，体现出英文单词对于翻译当前中文单词不同的影响程度，比如给出类似下面一个概率分布值：</p>
+
+<p style="margin-left:8px;">（Tom,0.3）(Chase,0.2) (Jerry,0.5)</p>
+
+<p style="margin-left:8px;">每个英文单词的概率代表了翻译当前单词“杰瑞”时，注意力分配模型分配给不同英文单词的注意力大小。这对于正确翻译目标语单词肯定是有帮助的，因为引入了新的信息。</p>
+
+<p style="margin-left:8px;">同理，目标句子中的每个单词都应该学会其对应的源语句子中单词的注意力分配概率信息。这意味着在生成每个单词<img alt="" class="has" src="https://mmbiz.qpic.cn/mmbiz_png/ptp8P184xjxeRHqppry03SX1TTiblocHf0jHv1uKJNUvxsNe1vp7DNvm6GiaGDibdc3t5QyCHK37gpiaQOjGnQDEJQ/640?wx_fmt=png&amp;wxfrom=5&amp;wx_lazy=1" />的时候，原先都是相同的中间语义表示C会被替换成根据当前生成单词而不断变化的<img alt="" class="has" src="https://mmbiz.qpic.cn/mmbiz_png/ptp8P184xjxeRHqppry03SX1TTiblocHfYQ9sZB3Wsia1p3Xze2mZfflaAmxtEwEbibgyv63FUosHdTjqoaOU4Qug/640?wx_fmt=png&amp;wxfrom=5&amp;wx_lazy=1" />。理解Attention模型的关键就是这里，即由固定的中间语义表示C换成了根据当前输出单词来调整成加入注意力模型的变化的<img alt="" class="has" src="https://mmbiz.qpic.cn/mmbiz_png/ptp8P184xjxeRHqppry03SX1TTiblocHfYQ9sZB3Wsia1p3Xze2mZfflaAmxtEwEbibgyv63FUosHdTjqoaOU4Qug/640?wx_fmt=png&amp;wxfrom=5&amp;wx_lazy=1" />。增加了注意力模型的Encoder-Decoder框架理解起来如图3所示。</p>
+
+<p><img alt="" class="has" src="https://img-blog.csdn.net/20171210214221404" /></p>
+
+<p> </p>
+
+<p> </p>
+
+<p><span style="color:#333333;">                                                                                            <span style="color:#888888;">图3 引入注意力模型的Encoder-Decoder框架</span></span></p>
+
+<p> </p>
+
+<p> </p>
+
+<p> </p>
+
+<p><span style="color:#333333;">即生成目标句子单词的过程成了下面的形式：</span></p>
+
+<p><span style="color:#333333;">                 <img alt="" class="has" src="https://img-blog.csdn.net/20171210214301607" /></span></p>
+
+<p> </p>
+
+<p style="margin-left:8px;">而每个<img alt="" class="has" src="https://mmbiz.qpic.cn/mmbiz_png/ptp8P184xjxeRHqppry03SX1TTiblocHfYQ9sZB3Wsia1p3Xze2mZfflaAmxtEwEbibgyv63FUosHdTjqoaOU4Qug/640?wx_fmt=png&amp;wxfrom=5&amp;wx_lazy=1" />可能对应着不同的源语句子单词的注意力分配概率分布，比如对于上面的英汉翻译来说，其对应的信息可能如下：</p>
+
+<p><img alt="" class="has" src="https://img-blog.csdn.net/20171210214332521" /></p>
+
+<p> </p>
+
+<p> </p>
+
+<p> </p>
+
+<p style="margin-left:8px;">其中，f2函数代表Encoder对输入英文单词的某种变换函数，比如如果Encoder是用的RNN模型的话，这个f2函数的结果往往是某个时刻输入<img alt="" class="has" src="https://mmbiz.qpic.cn/mmbiz_png/ptp8P184xjxeRHqppry03SX1TTiblocHfee201onRzAeNMlL67LqiatMdsnHMytcqo855xdPsYxEfKIpNoBKT1Ig/640?wx_fmt=png&amp;wxfrom=5&amp;wx_lazy=1" />后隐层节点的状态值；g代表Encoder根据单词的中间表示合成整个句子中间语义表示的变换函数，一般的做法中，g函数就是对构成元素加权求和，即下列公式：</p>
+
+<p>                                                    <img alt="" class="has" src="https://img-blog.csdn.net/20171210214358016" /></p>
+
+<p> </p>
+
+<p style="margin-left:8px;">其中，<img alt="" class="has" src="https://mmbiz.qpic.cn/mmbiz_png/ptp8P184xjxeRHqppry03SX1TTiblocHfib0KzXZMPJysQJHuQPzYxE5gXcb0nk5p1puZ3kg9EhCbFibfY5lkGA8A/640?wx_fmt=png&amp;wxfrom=5&amp;wx_lazy=1" />代表输入句子Source的长度，<img alt="" class="has" src="https://mmbiz.qpic.cn/mmbiz_png/ptp8P184xjxeRHqppry03SX1TTiblocHf5iaiaKmjdLQibeUltwvJoBqZichpOlPtLQVb1f0HNxrlod6YX8fqHzfRQQ/640?wx_fmt=png&amp;wxfrom=5&amp;wx_lazy=1" />代表在Target输出第i个单词时Source输入句子中第j个单词的注意力分配系数，而<img alt="" class="has" src="https://mmbiz.qpic.cn/mmbiz_png/ptp8P184xjxeRHqppry03SX1TTiblocHf1lVib36aoaYmNPjjM0HP4jn1IiawUCD2oMjJiawyiaAaibeoDAPd5wK6g7w/640?wx_fmt=png&amp;wxfrom=5&amp;wx_lazy=1" />则是Source输入句子中第j个单词的语义编码。假设<img alt="" class="has" src="https://mmbiz.qpic.cn/mmbiz_png/ptp8P184xjxeRHqppry03SX1TTiblocHfYQ9sZB3Wsia1p3Xze2mZfflaAmxtEwEbibgyv63FUosHdTjqoaOU4Qug/640?wx_fmt=png&amp;wxfrom=5&amp;wx_lazy=1" />下标i就是上面例子所说的“ 汤姆” ，那么<img alt="" class="has" src="https://mmbiz.qpic.cn/mmbiz_png/ptp8P184xjxeRHqppry03SX1TTiblocHfib0KzXZMPJysQJHuQPzYxE5gXcb0nk5p1puZ3kg9EhCbFibfY5lkGA8A/640?wx_fmt=png&amp;wxfrom=5&amp;wx_lazy=1" />就是3，h1=f(“Tom”)，h2=f(“Chase”),h3=f(“Jerry”)分别是输入句子每个单词的语义编码，对应的注意力模型权值则分别是0.6,0.2,0.2，所以g函数本质上就是个加权求和函数。如果形象表示的话，翻译中文单词“汤姆”的时候，数学公式对应的中间语义表示<img alt="" class="has" src="https://mmbiz.qpic.cn/mmbiz_png/ptp8P184xjxeRHqppry03SX1TTiblocHfYQ9sZB3Wsia1p3Xze2mZfflaAmxtEwEbibgyv63FUosHdTjqoaOU4Qug/640?wx_fmt=png&amp;wxfrom=5&amp;wx_lazy=1" />的形成过程类似图4。</p>
+
+<p>     <img alt="" class="has" src="https://img-blog.csdn.net/20171210214432551" /></p>
+
+<p> </p>
+
+<p><span style="color:#333333;">                                                            <span style="color:#888888;">图4 Attention的形成过程</span></span></p>
+
+<p> </p>
+
+<p> </p>
+
+<p style="margin-left:8px;">这里还有一个问题：生成目标句子某个单词，比如“汤姆”的时候，如何知道Attention模型所需要的输入句子单词注意力分配概率分布值呢？就是说“汤姆”对应的输入句子Source中各个单词的概率分布：(Tom,0.6)(Chase,0.2) (Jerry,0.2) 是如何得到的呢？</p>
+
+<p style="margin-left:8px;">为了便于说明，我们假设对图2的非Attention模型的Encoder-Decoder框架进行细化，Encoder采用RNN模型，Decoder也采用RNN模型，这是比较常见的一种模型配置，则图2的框架转换为图5。</p>
+
+<p><img alt="" class="has" src="https://img-blog.csdn.net/20171210214511689" /></p>
+
+<p> </p>
+
+<p><span style="color:#333333;">                                                            <span style="color:#888888;">图5 RNN作为具体模型的Encoder-Decoder框架</span></span></p>
+
+<p> </p>
+
+<p><span style="color:#333333;">那么用图6可以较为便捷地说明注意力分配概率分布值的通用计算过程。</span></p>
+
+<p><span style="color:#333333;"><img alt="" class="has" src="https://img-blog.csdn.net/20171210214550211" /></span></p>
+
+<p><span style="color:#333333;">                                                                                                        <span style="color:#888888;">图6 注意力分配概率计算</span></span></p>
+
+<p> </p>
+
+<p style="margin-left:8px;">对于采用RNN的Decoder来说，在时刻i，如果要生成yi单词，我们是可以知道Target在生成<img alt="" class="has" src="https://mmbiz.qpic.cn/mmbiz_png/ptp8P184xjxeRHqppry03SX1TTiblocHf0jHv1uKJNUvxsNe1vp7DNvm6GiaGDibdc3t5QyCHK37gpiaQOjGnQDEJQ/640?wx_fmt=png&amp;wxfrom=5&amp;wx_lazy=1" />之前的时刻i-1时，隐层节点i-1时刻的输出值<img alt="" class="has" src="https://mmbiz.qpic.cn/mmbiz_png/ptp8P184xjxeRHqppry03SX1TTiblocHflQX776H1MHENYicv1iaqIWoLPU2hVhCFp7hlCFjdSdkG1eOJbIic92uHQ/640?wx_fmt=png&amp;wxfrom=5&amp;wx_lazy=1" />的，而我们的目的是要计算生成<img alt="" class="has" src="https://mmbiz.qpic.cn/mmbiz_png/ptp8P184xjxeRHqppry03SX1TTiblocHf0jHv1uKJNUvxsNe1vp7DNvm6GiaGDibdc3t5QyCHK37gpiaQOjGnQDEJQ/640?wx_fmt=png&amp;wxfrom=5&amp;wx_lazy=1" />时输入句子中的单词“Tom”、“Chase”、“Jerry”对<img alt="" class="has" src="https://mmbiz.qpic.cn/mmbiz_png/ptp8P184xjxeRHqppry03SX1TTiblocHf0jHv1uKJNUvxsNe1vp7DNvm6GiaGDibdc3t5QyCHK37gpiaQOjGnQDEJQ/640?wx_fmt=png&amp;wxfrom=5&amp;wx_lazy=1" />来说的注意力分配概率分布，那么可以用Target输出句子i-1时刻的隐层节点状态<img alt="" class="has" src="https://mmbiz.qpic.cn/mmbiz_png/ptp8P184xjxeRHqppry03SX1TTiblocHflQX776H1MHENYicv1iaqIWoLPU2hVhCFp7hlCFjdSdkG1eOJbIic92uHQ/640?wx_fmt=png&amp;wxfrom=5&amp;wx_lazy=1" />去一一和输入句子Source中每个单词对应的RNN隐层节点状态hj进行对比，即通过函数F(<img alt="" class="has" src="https://mmbiz.qpic.cn/mmbiz_png/ptp8P184xjxeRHqppry03SX1TTiblocHf1lVib36aoaYmNPjjM0HP4jn1IiawUCD2oMjJiawyiaAaibeoDAPd5wK6g7w/640?wx_fmt=png&amp;wxfrom=5&amp;wx_lazy=1" />,<img alt="" class="has" src="https://mmbiz.qpic.cn/mmbiz_png/ptp8P184xjxeRHqppry03SX1TTiblocHflQX776H1MHENYicv1iaqIWoLPU2hVhCFp7hlCFjdSdkG1eOJbIic92uHQ/640?wx_fmt=png&amp;wxfrom=5&amp;wx_lazy=1" />)来获得目标单词<img alt="" class="has" src="https://mmbiz.qpic.cn/mmbiz_png/ptp8P184xjxeRHqppry03SX1TTiblocHf0jHv1uKJNUvxsNe1vp7DNvm6GiaGDibdc3t5QyCHK37gpiaQOjGnQDEJQ/640?wx_fmt=png&amp;wxfrom=5&amp;wx_lazy=1" />和每个输入单词对应的对齐可能性，这个F函数在不同论文里可能会采取不同的方法，然后函数F的输出经过Softmax进行归一化就得到了符合概率分布取值区间的注意力分配概率分布数值。</p>
+
+<p style="margin-left:8px;">绝大多数Attention模型都是采取上述的计算框架来计算注意力分配概率分布信息，区别只是在F的定义上可能有所不同。图7可视化地展示了在英语-德语翻译系统中加入Attention机制后，Source和Target两个句子每个单词对应的注意力分配概率分布。</p>
+
+<p><img alt="" class="has" src="https://img-blog.csdn.net/20171210214629021" /></p>
+
+<p> </p>
+
+<p><span style="color:#333333;">                                                                             <span style="color:#888888;">图7 英语-德语翻译的注意力概率分布</span></span></p>
+
+<p> </p>
+
+<p> </p>
+
+<p style="margin-left:8px;">上述内容就是经典的Soft Attention模型的基本思想，那么怎么理解Attention模型的物理含义呢？一般在自然语言处理应用里会把Attention模型看作是输出Target句子中某个单词和输入Source句子每个单词的对齐模型，这是非常有道理的。</p>
+
+<p style="margin-left:8px;">目标句子生成的每个单词对应输入句子单词的概率分布可以理解为输入句子单词和这个目标生成单词的对齐概率，这在机器翻译语境下是非常直观的：传统的统计机器翻译一般在做的过程中会专门有一个短语对齐的步骤，而注意力模型其实起的是相同的作用。</p>
+
+<p><img alt="" class="has" src="https://img-blog.csdn.net/20171210214712031" /></p>
+
+<p> </p>
+
+<p><span style="color:#333333;">                                                                             </span></p>
+
+<p> </p>
+
+<p><span style="color:#333333;">                                                                                                        <span style="color:#888888;">图8 Google 神经网络机器翻译系统结构图</span></span></p>
+
+<p> </p>
+
+<p style="margin-left:8px;">图8所示即为Google于2016年部署到线上的基于神经网络的机器翻译系统，相对传统模型翻译效果有大幅提升，翻译错误率降低了60%，其架构就是上文所述的加上Attention机制的Encoder-Decoder框架，主要区别无非是其Encoder和Decoder使用了8层叠加的LSTM模型。</p>
+
+<p style="margin-left:8px;"><strong>Attention机制的本质思想</strong></p>
+
+<p style="margin-left:8px;">如果把Attention机制从上文讲述例子中的Encoder-Decoder框架中剥离，并进一步做抽象，可以更容易看懂Attention机制的本质思想。</p>
+
+<p><img alt="" class="has" src="https://img-blog.csdn.net/20171210214756931" /></p>
+
+<p> </p>
+
+<p><span style="color:#333333;">                                                                                     <span style="color:#888888;">图9 Attention机制的本质思想</span></span></p>
+
+<p> </p>
+
+<p><span style="color:#333333;">我们可以这样来看待Attention机制（参考图9）：将Source中的构成元素想象成是由一系列的&lt;Key,Value&gt;数据对构成，此时给定Target中的某个元素Query，通过计算Query和各个Key的相似性或者相关性，得到每个Key对应Value的权重系数，然后对Value进行加权求和，即得到了最终的Attention数值。所以本质上Attention机制是对Source中元素的Value值进行加权求和，而Query和Key用来计算对应Value的权重系数。即可以将其本质思想改写为如下公式：</span></p>
+
+<p><span style="color:#333333;">    <img alt="" class="has" src="https://img-blog.csdn.net/20171210214835727" /></span></p>
+
+<p> </p>
+
+<p style="margin-left:8px;">其中，<img alt="" class="has" src="https://mmbiz.qpic.cn/mmbiz_png/ptp8P184xjxeRHqppry03SX1TTiblocHfib0KzXZMPJysQJHuQPzYxE5gXcb0nk5p1puZ3kg9EhCbFibfY5lkGA8A/640?wx_fmt=png&amp;wxfrom=5&amp;wx_lazy=1" />=||Source||代表Source的长度，公式含义即如上所述。上文所举的机器翻译的例子里，因为在计算Attention的过程中，Source中的Key和Value合二为一，指向的是同一个东西，也即输入句子中每个单词对应的语义编码，所以可能不容易看出这种能够体现本质思想的结构。</p>
+
+<p style="margin-left:8px;">当然，从概念上理解，把Attention仍然理解为从大量信息中有选择地筛选出少量重要信息并聚焦到这些重要信息上，忽略大多不重要的信息，这种思路仍然成立。聚焦的过程体现在权重系数的计算上，权重越大越聚焦于其对应的Value值上，即权重代表了信息的重要性，而Value是其对应的信息。</p>
+
+<p style="margin-left:8px;">从图9可以引出另外一种理解，也可以将Attention机制看作一种软寻址（Soft Addressing）:Source可以看作存储器内存储的内容，元素由地址Key和值Value组成，当前有个Key=Query的查询，目的是取出存储器中对应的Value值，即Attention数值。通过Query和存储器内元素Key的地址进行相似性比较来寻址，之所以说是软寻址，指的不像一般寻址只从存储内容里面找出一条内容，而是可能从每个Key地址都会取出内容，取出内容的重要性根据Query和Key的相似性来决定，之后对Value进行加权求和，这样就可以取出最终的Value值，也即Attention值。所以不少研究人员将Attention机制看作软寻址的一种特例，这也是非常有道理的。</p>
+
+<p style="margin-left:8px;"> 至于Attention机制的具体计算过程，如果对目前大多数方法进行抽象的话，可以将其归纳为两个过程：第一个过程是根据Query和Key计算权重系数，第二个过程根据权重系数对Value进行加权求和。而第一个过程又可以细分为两个阶段：第一个阶段根据Query和Key计算两者的相似性或者相关性；第二个阶段对第一阶段的原始分值进行归一化处理；这样，可以将Attention的计算过程抽象为如图10展示的三个阶段。</p>
+
+<p style="margin-left:8px;"><img alt="" class="has" src="https://img-blog.csdn.net/20171210214910845" /></p>
+
+<p>                                                                                                          <span style="color:#888888;">图10 三阶段计算Attention过程</span></p>
+
+<p> </p>
+
+<p style="margin-left:8px;">在第一个阶段，可以引入不同的函数和计算机制，根据Query和某个<img alt="" class="has" src="https://mmbiz.qpic.cn/mmbiz_png/ptp8P184xjxeRHqppry03SX1TTiblocHf8GpiaicI5ic1WVVOVmPmiadhXTqh5Wp5867WnSO5hicXDfYNBLiawKAn01lA/640?wx_fmt=png&amp;wxfrom=5&amp;wx_lazy=1" />，计算两者的相似性或者相关性，最常见的方法包括：求两者的向量点积、求两者的向量Cosine相似性或者通过再引入额外的神经网络来求值，即如下方式：</p>
+
+<p><img alt="" class="has" src="https://img-blog.csdn.net/20171210215005368" /></p>
+
+<p> </p>
+
+<p> </p>
+
+<p> </p>
+
+<p><span style="color:#333333;">第一阶段产生的分值根据具体产生的方法不同其数值取值范围也不一样，第二阶段引入类似SoftMax的计算方式对第一阶段的得分进行数值转换，一方面可以进行归一化，将原始计算分值整理成所有元素权重之和为1的概率分布；另一方面也可以通过SoftMax的内在机制更加突出重要元素的权重。即一般采用如下公式计算：</span></p>
+
+<p><span style="color:#333333;">  <img alt="" class="has" src="https://img-blog.csdn.net/20171210215032165" /></span></p>
+
+<p> </p>
+
+<p style="margin-left:8px;">第二阶段的计算结果<img alt="" class="has" src="https://mmbiz.qpic.cn/mmbiz_png/ptp8P184xjxeRHqppry03SX1TTiblocHfUibJS5EJIISMNJIOnjq8pg5tfFvaroZpyRibHIEStTDPXvKDZSKFCwjg/640?wx_fmt=png&amp;wxfrom=5&amp;wx_lazy=1" />即为<img alt="" class="has" src="https://mmbiz.qpic.cn/mmbiz_png/ptp8P184xjxeRHqppry03SX1TTiblocHfrGdeIIwxKb0q16iazmxSwfhCGByicJ66qXNkdaOnFwOHyO1DNLWreAeA/640?wx_fmt=png&amp;wxfrom=5&amp;wx_lazy=1" />对应的权重系数，然后进行加权求和即可得到Attention数值：</p>
+
+<p><img alt="" class="has" src="https://img-blog.csdn.net/20171210215055844" /></p>
+
+<p> </p>
+
+<p> </p>
+
+<p> </p>
+
+<p style="margin-left:8px;">通过如上三个阶段的计算，即可求出针对Query的Attention数值，目前绝大多数具体的注意力机制计算方法都符合上述的三阶段抽象计算过程。</p>
+
+<p> </p>
+
+<p style="margin-left:8px;"><strong>Self Attention模型</strong></p>
+
+<p style="margin-left:8px;">通过上述对Attention本质思想的梳理，我们可以更容易理解本节介绍的Self Attention模型。Self Attention也经常被称为intra Attention（内部Attention），最近一年也获得了比较广泛的使用，比如Google最新的机器翻译模型内部大量采用了Self Attention模型。</p>
+
+<p style="margin-left:8px;">在一般任务的Encoder-Decoder框架中，输入Source和输出Target内容是不一样的，比如对于英-中机器翻译来说，Source是英文句子，Target是对应的翻译出的中文句子，Attention机制发生在Target的元素Query和Source中的所有元素之间。而Self Attention顾名思义，指的不是Target和Source之间的Attention机制，而是Source内部元素之间或者Target内部元素之间发生的Attention机制，也可以理解为Target=Source这种特殊情况下的注意力计算机制。其具体计算过程是一样的，只是计算对象发生了变化而已，所以此处不再赘述其计算过程细节。</p>
+
+<p style="margin-left:8px;">如果是常规的Target不等于Source情形下的注意力计算，其物理含义正如上文所讲，比如对于机器翻译来说，本质上是目标语单词和源语单词之间的一种单词对齐机制。那么如果是Self Attention机制，一个很自然的问题是：通过Self Attention到底学到了哪些规律或者抽取出了哪些特征呢？或者说引入Self Attention有什么增益或者好处呢？我们仍然以机器翻译中的Self Attention来说明，图11和图12是可视化地表示Self Attention在同一个英语句子内单词间产生的联系。</p>
+
+<p><img alt="" class="has" src="https://img-blog.csdn.net/20171210215119410" /></p>
+
+<p> </p>
+
+<p><span style="color:#333333;">                                                                                      </span></p>
+
+<p> </p>
+
+<p><span style="color:#333333;"><span style="color:#888888;">                                                                             图11 可视化Self Attention实例</span></span></p>
+
+<p><span style="color:#333333;"><span style="color:#888888;"><img alt="" class="has" src="https://img-blog.csdn.net/20171210215156069" /></span></span></p>
+
+<p><span style="color:#333333;"><span style="color:#888888;">                                                                      <span style="color:#888888;">图12 可视化Self Attention实例</span></span></span></p>
+
+<p> </p>
+
+<p style="margin-left:8px;">从两张图（图11、图12）可以看出，Self Attention可以捕获同一个句子中单词之间的一些句法特征（比如图11展示的有一定距离的短语结构）或者语义特征（比如图12展示的its的指代对象Law）。</p>
+
+<p style="margin-left:8px;">很明显，引入Self Attention后会更容易捕获句子中长距离的相互依赖的特征，因为如果是RNN或者LSTM，需要依次序序列计算，对于远距离的相互依赖的特征，要经过若干时间步步骤的信息累积才能将两者联系起来，而距离越远，有效捕获的可能性越小。</p>
+
+<p style="margin-left:8px;">但是Self Attention在计算过程中会直接将句子中任意两个单词的联系通过一个计算步骤直接联系起来，所以远距离依赖特征之间的距离被极大缩短，有利于有效地利用这些特征。除此外，Self Attention对于增加计算的并行性也有直接帮助作用。这是为何Self Attention逐渐被广泛使用的主要原因。</p>
+
+<p style="margin-left:8px;"> </p>
+
+<p style="margin-left:8px;"><strong>Attention机制的应用</strong></p>
+
+<p style="margin-left:8px;">前文有述，Attention机制在深度学习的各种应用领域都有广泛的使用场景。上文在介绍过程中我们主要以自然语言处理中的机器翻译任务作为例子，下面分别再从图像处理领域和语音识别选择典型应用实例来对其应用做简单说明。</p>
+
+<p><img alt="" class="has" src="https://img-blog.csdn.net/20171210215240312" /></p>
+
+<p> </p>
+
+<p><span style="color:#333333;"><span style="color:#888888;">                                                          图13 图片-描述任务的Encoder-Decoder框架</span></span></p>
+
+<p> </p>
+
+<p> </p>
+
+<p style="margin-left:8px;">图片描述（Image-Caption）是一种典型的图文结合的深度学习应用，输入一张图片，人工智能系统输出一句描述句子，语义等价地描述图片所示内容。很明显这种应用场景也可以使用Encoder-Decoder框架来解决任务目标，此时Encoder输入部分是一张图片，一般会用CNN来对图片进行特征抽取，Decoder部分使用RNN或者LSTM来输出自然语言句子（参考图13）。</p>
+
+<p style="margin-left:8px;">此时如果加入Attention机制能够明显改善系统输出效果，Attention模型在这里起到了类似人类视觉选择性注意的机制，在输出某个实体单词的时候会将注意力焦点聚焦在图片中相应的区域上。图14给出了根据给定图片生成句子“A person is standing on a beach with a surfboard.”过程时每个单词对应图片中的注意力聚焦区域。</p>
+
+<p><img alt="" class="has" src="https://img-blog.csdn.net/20171210215329303" /></p>
+
+<p> </p>
+
+<p><span style="color:#333333;">                                                                        <span style="color:#888888;">图14 图片生成句子中每个单词时的注意力聚焦区域</span></span></p>
+
+<p> </p>
+
+<p> </p>
+
+<p><span style="color:#333333;">图15给出了另外四个例子形象地展示了这种过程，每个例子上方左侧是输入的原图，下方句子是人工智能系统自动产生的描述语句，上方右侧图展示了当AI系统产生语句中划横线单词的时候，对应图片中聚焦的位置区域。比如当输出单词dog的时候，AI系统会将注意力更多地分配给图片中小狗对应的位置。</span></p>
+
+<p><span style="color:#333333;"><img alt="" class="has" src="https://img-blog.csdn.net/20171210215416596" /></span></p>
+
+<p><span style="color:#333333;">                                                                                                <span style="color:#888888;">图15 图像描述任务中Attention机制的聚焦作用</span>                     </span></p>
+
+<p> </p>
+
+<p><span style="color:#333333;"><img alt="" class="has" src="https://img-blog.csdn.net/20171210215459030" />                  </span></p>
+
+<p><span style="color:#333333;">                                                                                                    <span style="color:#888888;">图16 语音识别中音频序列和输出字符之间的Attention</span></span></p>
+
+<p> </p>
+
+<p> </p>
+
+<p style="margin-left:8px;">语音识别的任务目标是将语音流信号转换成文字，所以也是Encoder-Decoder的典型应用场景。Encoder部分的Source输入是语音流信号，Decoder部分输出语音对应的字符串流。</p>
+
+<p style="margin-left:8px;">图16可视化地展示了在Encoder-Decoder框架中加入Attention机制后，当用户用语音说句子 how much would a woodchuck chuck 时，输入部分的声音特征信号和输出字符之间的注意力分配概率分布情况，颜色越深代表分配到的注意力概率越高。从图中可以看出，在这个场景下，Attention机制起到了将输出字符和输入语音信号进行对齐的功能。</p>
+
+<p style="margin-left:8px;">上述内容仅仅选取了不同AI领域的几个典型Attention机制应用实例，Encoder-Decoder加Attention架构由于其卓越的实际效果，目前在深度学习领域里得到了广泛的使用，了解并熟练使用这一架构对于解决实际问题会有极大帮助。</p>
+
+<p> </p>            </div>
+                </div>
+									<div class="hide-article-box text-center">
+						<a class="btn" id="btn-readmore" data-track-view='{"mod":"popu_376","con":",https://blog.csdn.net/malefactor/article/details/78767781,"}' data-track-click='{"mod":"popu_376","con":",https://blog.csdn.net/malefactor/article/details/78767781,"}'>阅读更多</a>
+					</div>
+					<script>
+						(function(){
+							function setArticleH(btnReadmore,posi){
+								var winH = $(window).height();
+								var articleBox = $("div.article_content");
+								var artH = articleBox.height();
+								if(artH > winH*posi){
+									articleBox.css({
+										'height':winH*posi+'px',
+										'overflow':'hidden'
+									})
+									btnReadmore.click(function(){
+										articleBox.removeAttr("style");
+										$(this).parent().remove();
+									})
+								}else{
+									btnReadmore.parent().remove();
+								}
+							}
+							var btnReadmore = $("#btn-readmore");
+							if(btnReadmore.length>0){
+								if(currentUserName){
+									setArticleH(btnReadmore,3);
+								}else{
+									setArticleH(btnReadmore,1.2);
+								}
+							}
+						})()
+					</script>
+					</article>
+	
+</div>
+<script>
+		$(".MathJax").remove();
+		if($('div.markdown_views pre.prettyprint code.hljs').length > 0 ){
+				$('div.markdown_views')[0].className = 'markdown_views';
+		}
+</script>
+                <a id="commentBox"></a>
+<div class="comment-box">
+	  	<div class="comment-edit-box d-flex">
+		<a id="commentsedit"></a>
+		<div class="user-img">
+			<img src="https://avatar.csdn.net/A/7/1/3_zhuce_2012.jpg">
+		</div>
+		<form id="commentform">
+			<input type="hidden" id="comment_replyId">
+			<textarea class="comment-content" name="comment_content" id="comment_content" placeholder="想对作者说点什么"></textarea>
+			<div class="opt-box"> <!-- d-flex -->
+				<div id="ubbtools" class="add_code">
+					<a href="#insertcode" code="code" target="_self"><i class="icon iconfont icon-daima"></i></a>
+				</div>
+				<input type="hidden" id="comment_replyId" name="comment_replyId">
+				<input type="hidden" id="comment_userId" name="comment_userId" value="">
+				<input type="hidden" id="commentId" name="commentId" value="">
+				<div style="display: none;" class="csdn-tracking-statistics tracking-click" data-mod="popu_384"><a href="#" target="_blank" class="comment_area_btn">发表评论</a></div>
+				<div class="dropdown" id="myDrap">
+					<a class="dropdown-face d-flex align-items-center" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+					<div class="txt-selected text-truncate">添加代码片</div>
+					<svg class="icon d-block" aria-hidden="true">
+						<use xlink:href="#csdnc-triangledown"></use>
+					</svg>
+					</a>
+					<ul class="dropdown-menu" id="commentCode" aria-labelledby="drop4">
+						<li><a data-code="html">HTML/XML</a></li>
+						<li><a data-code="objc">objective-c</a></li>
+						<li><a data-code="ruby">Ruby</a></li>
+						<li><a data-code="php">PHP</a></li>
+						<li><a data-code="csharp">C</a></li>
+						<li><a data-code="cpp">C++</a></li>
+						<li><a data-code="javascript">JavaScript</a></li>
+						<li><a data-code="python">Python</a></li>
+						<li><a data-code="java">Java</a></li>
+						<li><a data-code="css">CSS</a></li>
+						<li><a data-code="sql">SQL</a></li>
+						<li><a data-code="plain">其它</a></li>
+					</ul>
+				</div>  
+				<div class="right-box">
+					<span id="tip_comment" class="tip">还能输入<em>1000</em>个字符</span>
+					<input type="submit" class="btn btn-sm btn-red btn-comment" value="发表评论">
+				</div>
+			</div>
+		</form>
+	</div>
+			<div class="comment-list-container">
+		<a id="comments"></a>
+		<div class="comment-list-box">
+		</div>
+		<div id="commentPage" class="pagination-box d-none"></div>
+		<div class="opt-box text-center">
+			<button class="btn btn-sm btn-link-blue" id="btnMoreComment"></button>
+		</div>
+	</div>
+</div>
+        <div class="recommend-box">
+            		<div class="recommend-item-box recommend-box-ident type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/Koala_Tree/article/details/79807145,BlogCommendClickRateRank_1"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/Koala_Tree/article/details/79807145,BlogCommendClickRateRank_1"}'>
+		<a href="https://blog.csdn.net/Koala_Tree/article/details/79807145?utm_source=blogxgwz0" target="_blank" title="吴恩达Coursera深度学习课程 DeepLearning.ai 提炼笔记（5-3）-- 序列模型和注意力机制">
+			<div class="content">
+				<h4 class="text-truncate oneline">
+						吴恩达Coursera深度学习课程 DeepLearning.ai 提炼笔记（5-3）-- 序列模型和注意力机制				</h4>
+				<div class="info-box d-flex align-content-center">
+					<!-- <p class="avatar">
+							<img src="https://avatar.csdn.net/5/7/8/3_koala_tree.jpg" alt="Koala_Tree" class="avatar-pic">
+							<span class="namebox">
+								<span class="name">Koala_Tree</span>
+								<span class="triangle"></span>
+							</span>
+					</p> -->
+					<p class="date-and-readNum">
+						<span class="date hover-show">04-04</span>
+						<span class="read-num hover-hide">
+							<svg class="icon csdnc-yuedushu" aria-hidden="true">
+								<use xlink:href="#csdnc-yuedushu"></use>
+							</svg>
+							1453</span>
+						</p>
+					</div>
+				</a>
+					<p class="content">
+						<a href="https://blog.csdn.net/Koala_Tree/article/details/79807145?utm_source=blogxgwz0" target="_blank" title="吴恩达Coursera深度学习课程 DeepLearning.ai 提炼笔记（5-3）-- 序列模型和注意力机制">
+							<span class="desc oneline">序列模型 --- 序列模型和注意力机制</span>
+						</a>
+                        						<span class="blog_title_box oneline"><a target="_blank" href="https://blog.csdn.net/Koala_Tree?utm_source=blog_pc_recommand">来自：	<span class="blog_title"> 大树先生的博客</span></a></span>
+                        					</p>
+			</div>
+					</div>
+						<div class="recommend-item-box recommend-box-ident type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/program_developer/article/details/77896069,BlogCommendClickRateRank_0"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/program_developer/article/details/77896069,BlogCommendClickRateRank_0"}'>
+		<a href="https://blog.csdn.net/program_developer/article/details/77896069?utm_source=blogxgwz1" target="_blank" title="神经网络中注意力机制（Attention Mechanism）">
+			<div class="content">
+				<h4 class="text-truncate oneline">
+						神经网络中注意力机制（Attention Mechanism）				</h4>
+				<div class="info-box d-flex align-content-center">
+					<!-- <p class="avatar">
+							<img src="https://avatar.csdn.net/8/7/6/3_program_developer.jpg" alt="program_developer" class="avatar-pic">
+							<span class="namebox">
+								<span class="name">program_developer</span>
+								<span class="triangle"></span>
+							</span>
+					</p> -->
+					<p class="date-and-readNum">
+						<span class="date hover-show">09-08</span>
+						<span class="read-num hover-hide">
+							<svg class="icon csdnc-yuedushu" aria-hidden="true">
+								<use xlink:href="#csdnc-yuedushu"></use>
+							</svg>
+							8702</span>
+						</p>
+					</div>
+				</a>
+					<p class="content">
+						<a href="https://blog.csdn.net/program_developer/article/details/77896069?utm_source=blogxgwz1" target="_blank" title="神经网络中注意力机制（Attention Mechanism）">
+							<span class="desc oneline">你要的最全、最详细的神经网络注意力机制就在这里！吐血大放送，大总结！注意力机制（Attention Mechanism）在自然语言处理中的应用强烈推荐：http://www.cnblogs.com/r...</span>
+						</a>
+                        						<span class="blog_title_box oneline"><a target="_blank" href="https://blog.csdn.net/program_developer?utm_source=blog_pc_recommand">来自：	<span class="blog_title"> Microstrong</span></a></span>
+                        					</p>
+			</div>
+					</div>
+						<div class="recommend-item-box recommend-box-ident type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/TG229dvt5I93mxaQ5A6U/article/details/78422216,BlogCommendClickRateRank_2"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/TG229dvt5I93mxaQ5A6U/article/details/78422216,BlogCommendClickRateRank_2"}'>
+		<a href="https://blog.csdn.net/TG229dvt5I93mxaQ5A6U/article/details/78422216?utm_source=blogxgwz2" target="_blank" title="深度学习中的注意力机制">
+			<div class="content">
+				<h4 class="text-truncate oneline">
+						深度学习中的注意力机制				</h4>
+				<div class="info-box d-flex align-content-center">
+					<!-- <p class="avatar">
+							<img src="https://avatar.csdn.net/9/9/C/3_tg229dvt5i93mxaq5a6u.jpg" alt="TG229dvt5I93mxaQ5A6U" class="avatar-pic">
+							<span class="namebox">
+								<span class="name">TG229dvt5I93mxaQ5A6U</span>
+								<span class="triangle"></span>
+							</span>
+					</p> -->
+					<p class="date-and-readNum">
+						<span class="date hover-show">11-02</span>
+						<span class="read-num hover-hide">
+							<svg class="icon csdnc-yuedushu" aria-hidden="true">
+								<use xlink:href="#csdnc-yuedushu"></use>
+							</svg>
+							2.3万</span>
+						</p>
+					</div>
+				</a>
+					<p class="content">
+						<a href="https://blog.csdn.net/TG229dvt5I93mxaQ5A6U/article/details/78422216?utm_source=blogxgwz2" target="_blank" title="深度学习中的注意力机制">
+							<span class="desc oneline">作者 | 张俊林
+
+
+责编 | 何永灿
+
+
+
+
+最近两年，注意力模型（Attention Model）被广泛使用在自然语言处理、图像识别及语音识别等各种不同类型的深度学习任务中，是深度...</span>
+						</a>
+                        						<span class="blog_title_box oneline"><a target="_blank" href="https://blog.csdn.net/TG229dvt5I93mxaQ5A6U?utm_source=blog_pc_recommand">来自：	<span class="blog_title"> CSDN大数据</span></a></span>
+                        					</p>
+			</div>
+					</div>
+						<div class="recommend-item-box recommend-box-ident type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/joshuaxx316/article/details/70665388,BlogCommendClickRateRank_3"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/joshuaxx316/article/details/70665388,BlogCommendClickRateRank_3"}'>
+		<a href="https://blog.csdn.net/joshuaxx316/article/details/70665388?utm_source=blogxgwz3" target="_blank" title="Attention注意力机制--原理与应用">
+			<div class="content">
+				<h4 class="text-truncate oneline">
+						Attention注意力机制--原理与应用				</h4>
+				<div class="info-box d-flex align-content-center">
+					<!-- <p class="avatar">
+							<img src="https://avatar.csdn.net/0/5/4/3_joshuaxx316.jpg" alt="joshuaxx316" class="avatar-pic">
+							<span class="namebox">
+								<span class="name">joshuaxx316</span>
+								<span class="triangle"></span>
+							</span>
+					</p> -->
+					<p class="date-and-readNum">
+						<span class="date hover-show">04-24</span>
+						<span class="read-num hover-hide">
+							<svg class="icon csdnc-yuedushu" aria-hidden="true">
+								<use xlink:href="#csdnc-yuedushu"></use>
+							</svg>
+							4.6万</span>
+						</p>
+					</div>
+				</a>
+					<p class="content">
+						<a href="https://blog.csdn.net/joshuaxx316/article/details/70665388?utm_source=blogxgwz3" target="_blank" title="Attention注意力机制--原理与应用">
+							<span class="desc oneline">注意力机制即Attention mechanism在序列学习任务上具有巨大的提升作用，在编解码器框架内，通过在编码段加入A模型，对源数据序列进行数据加权变换，或者在解码端引入A模型，对目标数据进行加权...</span>
+						</a>
+                        						<span class="blog_title_box oneline"><a target="_blank" href="https://blog.csdn.net/joshuaxx316?utm_source=blog_pc_recommand">来自：	<span class="blog_title"> joshuaxx316的专栏</span></a></span>
+                        					</p>
+			</div>
+					</div>
+						<div class="recommend-item-box recommend-box-ident type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/hpulfc/article/details/80448570,BlogCommendClickRateRank_4"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/hpulfc/article/details/80448570,BlogCommendClickRateRank_4"}'>
+		<a href="https://blog.csdn.net/hpulfc/article/details/80448570?utm_source=blogxgwz4" target="_blank" title="注意力机制的基本思想和实现原理（很详细）">
+			<div class="content">
+				<h4 class="text-truncate oneline">
+						注意力机制的基本思想和实现原理（很详细）				</h4>
+				<div class="info-box d-flex align-content-center">
+					<!-- <p class="avatar">
+							<img src="https://avatar.csdn.net/2/D/6/3_hpulfc.jpg" alt="hpulfc" class="avatar-pic">
+							<span class="namebox">
+								<span class="name">hpulfc</span>
+								<span class="triangle"></span>
+							</span>
+					</p> -->
+					<p class="date-and-readNum">
+						<span class="date hover-show">05-25</span>
+						<span class="read-num hover-hide">
+							<svg class="icon csdnc-yuedushu" aria-hidden="true">
+								<use xlink:href="#csdnc-yuedushu"></use>
+							</svg>
+							3008</span>
+						</p>
+					</div>
+				</a>
+					<p class="content">
+						<a href="https://blog.csdn.net/hpulfc/article/details/80448570?utm_source=blogxgwz4" target="_blank" title="注意力机制的基本思想和实现原理（很详细）">
+							<span class="desc oneline">作者：张俊林链接：https://www.zhihu.com/question/68482809/answer/264632289来源：知乎著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注...</span>
+						</a>
+                        						<span class="blog_title_box oneline"><a target="_blank" href="https://blog.csdn.net/hpulfc?utm_source=blog_pc_recommand">来自：	<span class="blog_title"> 这里应该有一个很正经的标题的~~~，但是，怎么没了呢~~~~</span></a></span>
+                        					</p>
+			</div>
+					</div>
+						<div class="recommend-item-box recommend-box-ident type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/uhauha2929/article/details/80733255,BlogCommendClickRateRank_8"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/uhauha2929/article/details/80733255,BlogCommendClickRateRank_8"}'>
+		<a href="https://blog.csdn.net/uhauha2929/article/details/80733255?utm_source=blogxgwz5" target="_blank" title="Keras实现注意力机制">
+			<div class="content">
+				<h4 class="text-truncate oneline">
+						Keras实现注意力机制				</h4>
+				<div class="info-box d-flex align-content-center">
+					<!-- <p class="avatar">
+							<img src="https://avatar.csdn.net/E/0/7/3_uhauha2929.jpg" alt="uhauha2929" class="avatar-pic">
+							<span class="namebox">
+								<span class="name">uhauha2929</span>
+								<span class="triangle"></span>
+							</span>
+					</p> -->
+					<p class="date-and-readNum">
+						<span class="date hover-show">06-19</span>
+						<span class="read-num hover-hide">
+							<svg class="icon csdnc-yuedushu" aria-hidden="true">
+								<use xlink:href="#csdnc-yuedushu"></use>
+							</svg>
+							1911</span>
+						</p>
+					</div>
+				</a>
+					<p class="content">
+						<a href="https://blog.csdn.net/uhauha2929/article/details/80733255?utm_source=blogxgwz5" target="_blank" title="Keras实现注意力机制">
+							<span class="desc oneline">Keras实现注意力机制
+
+
+
+这里主要记录几种Keras的注意力机制的实现，仅作为个人参考。
+
+
+python 3
+keras 2.1.0 (tensorflow backend)
+
+
+写法1
+
+这...</span>
+						</a>
+                        						<span class="blog_title_box oneline"><a target="_blank" href="https://blog.csdn.net/uhauha2929?utm_source=blog_pc_recommand">来自：	<span class="blog_title"> uhauha2929的专栏</span></a></span>
+                        					</p>
+			</div>
+					</div>
+						<div class="recommend-item-box recommend-box-ident type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/jdbc/article/details/53292414,BlogCommendClickRateRank_11"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/jdbc/article/details/53292414,BlogCommendClickRateRank_11"}'>
+		<a href="https://blog.csdn.net/jdbc/article/details/53292414?utm_source=blogxgwz6" target="_blank" title="最新自然语言处理(NLP)四步流程：Embed-&gt;Encode-&gt;Attend-&gt;Predict">
+			<div class="content">
+				<h4 class="text-truncate oneline">
+						最新自然语言处理(NLP)四步流程：Embed-&gt;Encode-&gt;Attend-&gt;Predict				</h4>
+				<div class="info-box d-flex align-content-center">
+					<!-- <p class="avatar">
+							<img src="https://avatar.csdn.net/8/4/B/3_jdbc.jpg" alt="jdbc" class="avatar-pic">
+							<span class="namebox">
+								<span class="name">jdbc</span>
+								<span class="triangle"></span>
+							</span>
+					</p> -->
+					<p class="date-and-readNum">
+						<span class="date hover-show">11-22</span>
+						<span class="read-num hover-hide">
+							<svg class="icon csdnc-yuedushu" aria-hidden="true">
+								<use xlink:href="#csdnc-yuedushu"></use>
+							</svg>
+							7605</span>
+						</p>
+					</div>
+				</a>
+					<p class="content">
+						<a href="https://blog.csdn.net/jdbc/article/details/53292414?utm_source=blogxgwz6" target="_blank" title="最新自然语言处理(NLP)四步流程：Embed-&gt;Encode-&gt;Attend-&gt;Predict">
+							<span class="desc oneline">最新自然语言处理(NLP)四步流程：Embed-&gt;Encode-&gt;Attend-&gt;Predict</span>
+						</a>
+                        						<span class="blog_title_box oneline"><a target="_blank" href="https://blog.csdn.net/jdbc?utm_source=blog_pc_recommand">来自：	<span class="blog_title"> 技术博客</span></a></span>
+                        					</p>
+			</div>
+					</div>
+						<div class="recommend-item-box recommend-box-ident type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/mpk_no1/article/details/72862348,BlogCommendClickRateRank_5"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/mpk_no1/article/details/72862348,BlogCommendClickRateRank_5"}'>
+		<a href="https://blog.csdn.net/mpk_no1/article/details/72862348?utm_source=blogxgwz7" target="_blank" title="深度学习笔记——Attention Model（注意力模型）学习总结">
+			<div class="content">
+				<h4 class="text-truncate oneline">
+						深度学习笔记——Attention Model（注意力模型）学习总结				</h4>
+				<div class="info-box d-flex align-content-center">
+					<!-- <p class="avatar">
+							<img src="https://avatar.csdn.net/9/8/C/3_mpk_no1.jpg" alt="mpk_no1" class="avatar-pic">
+							<span class="namebox">
+								<span class="name">mpk_no1</span>
+								<span class="triangle"></span>
+							</span>
+					</p> -->
+					<p class="date-and-readNum">
+						<span class="date hover-show">08-06</span>
+						<span class="read-num hover-hide">
+							<svg class="icon csdnc-yuedushu" aria-hidden="true">
+								<use xlink:href="#csdnc-yuedushu"></use>
+							</svg>
+							5.3万</span>
+						</p>
+					</div>
+				</a>
+					<p class="content">
+						<a href="https://blog.csdn.net/mpk_no1/article/details/72862348?utm_source=blogxgwz7" target="_blank" title="深度学习笔记——Attention Model（注意力模型）学习总结">
+							<span class="desc oneline">Attention Model（注意力模型）学习总结，包括soft Attention Model，Global Attention Model和Local Attention Model，静态AM，...</span>
+						</a>
+                        						<span class="blog_title_box oneline"><a target="_blank" href="https://blog.csdn.net/mpk_no1?utm_source=blog_pc_recommand">来自：	<span class="blog_title"> mpk_no1的博客</span></a></span>
+                        					</p>
+			</div>
+					</div>
+						<div class="recommend-item-box recommend-box-ident type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/z0n1l2/article/details/81175924,BlogCommendClickRateRank_6"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/z0n1l2/article/details/81175924,BlogCommendClickRateRank_6"}'>
+		<a href="https://blog.csdn.net/z0n1l2/article/details/81175924?utm_source=blogxgwz8" target="_blank" title="注意力机制入门">
+			<div class="content">
+				<h4 class="text-truncate oneline">
+						注意力机制入门				</h4>
+				<div class="info-box d-flex align-content-center">
+					<!-- <p class="avatar">
+							<img src="https://avatar.csdn.net/C/1/C/3_z0n1l2.jpg" alt="z0n1l2" class="avatar-pic">
+							<span class="namebox">
+								<span class="name">z0n1l2</span>
+								<span class="triangle"></span>
+							</span>
+					</p> -->
+					<p class="date-and-readNum">
+						<span class="date hover-show">07-23</span>
+						<span class="read-num hover-hide">
+							<svg class="icon csdnc-yuedushu" aria-hidden="true">
+								<use xlink:href="#csdnc-yuedushu"></use>
+							</svg>
+							96</span>
+						</p>
+					</div>
+				</a>
+					<p class="content">
+						<a href="https://blog.csdn.net/z0n1l2/article/details/81175924?utm_source=blogxgwz8" target="_blank" title="注意力机制入门">
+							<span class="desc oneline">重点
+
+
+attention mechanism可以和很多现有模型结合,插入两层之间:attention model接手前一层的输出,以及一个上下文参数(这个上下文是注意力机制的关键),经过注意力模型...</span>
+						</a>
+                        						<span class="blog_title_box oneline"><a target="_blank" href="https://blog.csdn.net/z0n1l2?utm_source=blog_pc_recommand">来自：	<span class="blog_title"> 大泽之国</span></a></span>
+                        					</p>
+			</div>
+					</div>
+						<div class="recommend-item-box recommend-box-ident type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/AMDS123/article/details/65938986,BlogCommendClickRateRank_7"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/AMDS123/article/details/65938986,BlogCommendClickRateRank_7"}'>
+		<a href="https://blog.csdn.net/AMDS123/article/details/65938986?utm_source=blogxgwz9" target="_blank" title="常见的两种注意力机制">
+			<div class="content">
+				<h4 class="text-truncate oneline">
+						常见的两种注意力机制				</h4>
+				<div class="info-box d-flex align-content-center">
+					<!-- <p class="avatar">
+							<img src="https://avatar.csdn.net/F/8/E/3_amds123.jpg" alt="AMDS123" class="avatar-pic">
+							<span class="namebox">
+								<span class="name">AMDS123</span>
+								<span class="triangle"></span>
+							</span>
+					</p> -->
+					<p class="date-and-readNum">
+						<span class="date hover-show">03-25</span>
+						<span class="read-num hover-hide">
+							<svg class="icon csdnc-yuedushu" aria-hidden="true">
+								<use xlink:href="#csdnc-yuedushu"></use>
+							</svg>
+							1.3万</span>
+						</p>
+					</div>
+				</a>
+					<p class="content">
+						<a href="https://blog.csdn.net/AMDS123/article/details/65938986?utm_source=blogxgwz9" target="_blank" title="常见的两种注意力机制">
+							<span class="desc oneline">为什么需要注意力机制
+
+seq2seq模型已经在机器翻译、自然语言处理领域取得了很大的进步，基于贝叶斯条件概率公式，seq2seq由一个编码器和一个解码器构成，编码器将源序列A编码成一个固定长度的特征...</span>
+						</a>
+                        						<span class="blog_title_box oneline"><a target="_blank" href="https://blog.csdn.net/AMDS123?utm_source=blog_pc_recommand">来自：	<span class="blog_title"> 人工智能</span></a></span>
+                        					</p>
+			</div>
+					</div>
+						<div class="recommend-item-box type_hot_word">
+									<div class="content clearfix oneline">
+				<h5 class="float-left">相关热词</h5>
+				<div class="float-left">
+									<span>
+						<a href="https://blog.csdn.net/app_12062011/article/details/54311945" target="_blank">
+						深度学习深度学习</a>
+					</span>
+									<span>
+						<a href="https://blog.csdn.net/dukai392/article/details/70271574" target="_blank">
+						深度学习和</a>
+					</span>
+									<span>
+						<a href="https://blog.csdn.net/willduan1/article/details/54577351" target="_blank">
+						深度学习will</a>
+					</span>
+									<span>
+						<a href="https://blog.csdn.net/hjimce/article/details/47323463" target="_blank">
+						深度学习（</a>
+					</span>
+									<span>
+						<a href="https://blog.csdn.net/u014696921/article/details/57084223" target="_blank">
+						in深度学习</a>
+					</span>
+								</div>
+			</div>
+					</div>
+		<div class="recommend-item-box blog-expert-recommend-box">
+			<h4 class="text-truncate">博主推荐
+			</h4>
+			<div class="blog-expert-recommend">
+				<div class="blog-expert-load-new" data-index="3">
+					<svg version="1.1" viewBox="0 0 200 200" style="enable-background:new 0 0 200 200;" xml:space="preserve">
+					<path d="M142.5,57.5c-1.3-1.2-2.1-3.3-2.1-5.4c0-4.2,3.3-7.5,7.5-7.5h19.6c4.2,0,7.5,3.3,7.5,7.5s-3.3,7.5-7.5,7.5h-4.2
+					 C170.8,71.2,175,85,175,100c0,41.7-33.8,75-75,75c-4.2,0-7.5-3.3-7.5-7.5c0-4.2,3.3-7.5,7.5-7.5c33.3,0,60-27.1,60-60
+					 C160,83.7,153.8,68.7,142.5,57.5L142.5,57.5z M57.5,142.5c1.2,1.2,2.1,3.3,2.1,5.4c0,4.2-3.3,7.5-7.5,7.5H32.5
+					 c-4.2,0-7.5-3.3-7.5-7.5c0-4.2,3.3-7.5,7.5-7.5h4.2C29.2,128.8,25,115,25,100c0-41.7,33.7-75,75-75c4.2,0,7.5,3.3,7.5,7.5
+					 S104.2,40,100,40c-33.3,0-60,27.1-60,60C40,116.2,46.2,131.2,57.5,142.5z"/>
+					</svg>
+					<span>换一批</span>
+				</div>
+				<div class="blog-expert">
+				</div>
+			</div>
+		</div>
+
+
+            <div class="recommend-loading-box">
+                <img src='https://csdnimg.cn/release/phoenix/images/feedLoading.gif'>
+            </div>
+            <div class="recommend-end-box">
+                <p class="text-center">没有更多推荐了，<a href="https://blog.csdn.net/" class="c-blue c-blue-hover c-blue-focus">返回首页</a></p>
+            </div>
+        </div>
+    </main>
+
+    <aside>
+		    <div id="asideProfile" class="aside-box">
+    <!-- <h3 class="aside-title">个人资料</h3> -->
+    <div class="profile-intro d-flex">
+        <div class="avatar-box d-flex justify-content-center flex-column">
+            <a href="https://blog.csdn.net/malefactor">
+                <img src="https://avatar.csdn.net/2/9/8/3_malefactor.jpg" class="avatar_pic">
+            </a>
+        </div>
+        <div class="user-info d-flex justify-content-center flex-column">
+            <p class="name csdn-tracking-statistics tracking-click" data-mod="popu_379">
+                <a href="https://blog.csdn.net/malefactor" target="_blank" class="" id="uid">张俊林博客</a>
+            </p>
+                        <p class="flag">
+                <svg class="icon" aria-hidden="true">
+                    <use xlink:href="#csdnc-blogexpert"></use>
+                </svg>
+                博客专家
+            </p>
+                    </div>
+                <div class="opt-box d-flex justify-content-center flex-column">
+            <span  class="csdn-tracking-statistics tracking-click" data-mod="popu_379">
+                <a class="btn btn-sm btn-red-hollow" id="btnAttent">关注</a>
+            </span>
+                    </div>
+            </div>
+    <div class="data-info d-flex item-tiling">
+                <dl class="text-center" title="116">
+                        <dt><a href="https://blog.csdn.net/malefactor?t=1">原创</a></dt>
+            <dd><a href="https://blog.csdn.net/malefactor?t=1"><span class="count">116</span></a></dd>
+                    </dl>
+        <dl class="text-center" id="fanBox" title="2479">
+            <dt>粉丝</dt>
+            <dd><span class="count" id="fan">2479</span></dd>
+        </dl>
+        <dl class="text-center" title="453">
+            <dt>喜欢</dt>
+            <dd><span class="count">453</span></dd>
+        </dl>
+        <dl class="text-center" title="470">
+            <dt>评论</dt>
+            <dd><span class="count">470</span></dd>
+        </dl>
+    </div>
+    <div class="grade-box clearfix">
+        <dl>
+            <dt>等级：</dt>
+            <dd>
+                <a href="https://blog.csdn.net/home/help.html#level" title="6级,点击查看等级说明" target="_blank">
+                    <svg class="icon icon-level" aria-hidden="true">
+                        <use xlink:href="#csdnc-bloglevel-6"></use>
+                    </svg>
+                </a>
+            </dd>
+        </dl>
+        <dl>
+            <dt>访问：</dt>
+            <dd title="1228400">
+                122万+            </dd>
+        </dl>
+        <dl>
+            <dt>积分：</dt>
+            <dd title="9919">
+                9919            </dd>
+        </dl>
+        <dl title="2548">
+            <dt>排名：</dt>
+            <dd>2548</dd>
+        </dl>
+    </div>
+        <div class="badge-box d-flex">
+        <span>勋章：</span>
+                        <a class="icon-badge" title="持之以恒">
+            <svg class="icon" aria-hidden="true">
+                <use xlink:href="#csdnc-m-lasting"></use>
+            </svg>
+            <div class="icon-arrow"></div>
+            <div class="grade-detail-box item2">
+                <div class="pos-box">
+                    <div class="left-box d-flex justify-content-center align-items-center flex-column">
+                        <svg class="icon" aria-hidden="true">
+                            <use xlink:href="#csdnc-m-lasting"></use>
+                        </svg>
+                        <p>持之以恒</p>
+                    </div>
+                    <div class="right-box d-flex justify-content-center align-items-center">
+                        授予每个自然月内发布4篇或4篇以上原创或翻译IT博文的用户。不积跬步无以至千里，不积小流无以成江海，程序人生的精彩需要坚持不懈地积累！
+                    </div>
+                </div>
+            </div>
+        </a>
+                            </div>
+    </div>
+		    		    <!--自定义模块-->
+<div id="asideCustom41146073" class="aside-box custom-box">
+    <h3 class="aside-title">我写的书</h3>
+    <div class="aside-content clearfix">
+        如果喜欢我写的博客<br>也许你会更加喜欢我写的书<br><p></p>
+<br>
+<center><a href="http://item.jd.com/11540991.html"><img src="http://img.blog.csdn.net/20160225213438703"></a></center>
+<div style="width:130px; margin-left: auto; margin-right: auto; margin-top: 5px">
+<center>
+<p><a target="_blank" href="http://blog.csdn.net/malefactor/article/details/39312929">查看详情</a></p><p></p></center>
+
+</div>
+<br>
+<br>
+<center><a href="http://item.jd.com/10893803.html"><img src="http://img.blog.csdn.net/20160225213510500"></a></center>
+<div style="width:130px; margin-left: auto; margin-right: auto; margin-top: 5px">
+<center>
+<p><a target="_blank" href="http://blog.csdn.net/malefactor/article/details/7299933">样章：搜索引擎如何建立索引</a></p><p></p></center>
+<p></p>
+
+</div>
+<br>    </div>
+</div>
+		    <div id="asideNewArticle" class="aside-box">
+    <h3 class="aside-title">最新文章</h3>
+    <div class="aside-content">
+        <ul class="inf_list clearfix csdn-tracking-statistics tracking-click" data-mod="popu_382">
+                        <li class="clearfix">
+                <a href="https://blog.csdn.net/malefactor/article/details/82154224" target="_blank">深度学习中的Normalization模型</a>
+            </li>
+                        <li class="clearfix">
+                <a href="https://blog.csdn.net/malefactor/article/details/82051716" target="_blank">深度学习枕边书</a>
+            </li>
+                        <li class="clearfix">
+                <a href="https://blog.csdn.net/malefactor/article/details/81050389" target="_blank">社交搜索Graph Search技术解析</a>
+            </li>
+                        <li class="clearfix">
+                <a href="https://blog.csdn.net/malefactor/article/details/80287495" target="_blank">深度学习在CTR预估任务中的应用</a>
+            </li>
+                        <li class="clearfix">
+                <a href="https://blog.csdn.net/malefactor/article/details/79253901" target="_blank">2017年AI技术盘点：关键进展与趋势</a>
+            </li>
+                    </ul>
+    </div>
+</div>
+		    		    <div id="asideCategory" class="aside-box flexible-box">
+    <h3 class="aside-title">个人分类</h3>
+    <div class="aside-content">
+        <ul>
+                        <li>
+                <a class="clearfix" href="https://blog.csdn.net/malefactor/article/category/69592">
+                    <span class="title oneline">搜索引擎</span>
+                    <span class="count float-right">37篇</span>
+                </a>
+            </li>
+                        <li>
+                <a class="clearfix" href="https://blog.csdn.net/malefactor/article/category/716775">
+                    <span class="title oneline">自然语言处理</span>
+                    <span class="count float-right">34篇</span>
+                </a>
+            </li>
+                        <li>
+                <a class="clearfix" href="https://blog.csdn.net/malefactor/article/category/2564273">
+                    <span class="title oneline">大数据</span>
+                    <span class="count float-right">7篇</span>
+                </a>
+            </li>
+                        <li>
+                <a class="clearfix" href="https://blog.csdn.net/malefactor/article/category/2759953">
+                    <span class="title oneline">深度学习</span>
+                    <span class="count float-right">36篇</span>
+                </a>
+            </li>
+                        <li>
+                <a class="clearfix" href="https://blog.csdn.net/malefactor/article/category/131772">
+                    <span class="title oneline">随笔</span>
+                    <span class="count float-right">21篇</span>
+                </a>
+            </li>
+                        <li>
+                <a class="clearfix" href="https://blog.csdn.net/malefactor/article/category/957270">
+                    <span class="title oneline">SALSA算法</span>
+                    <span class="count float-right">1篇</span>
+                </a>
+            </li>
+                        <li>
+                <a class="clearfix" href="https://blog.csdn.net/malefactor/article/category/131765">
+                    <span class="title oneline">编程技术</span>
+                    <span class="count float-right">2篇</span>
+                </a>
+            </li>
+                        <li>
+                <a class="clearfix" href="https://blog.csdn.net/malefactor/article/category/131835">
+                    <span class="title oneline">IT观察</span>
+                    <span class="count float-right">5篇</span>
+                </a>
+            </li>
+                        <li>
+                <a class="clearfix" href="https://blog.csdn.net/malefactor/article/category/67951">
+                    <span class="title oneline">模式</span>
+                    <span class="count float-right">2篇</span>
+                </a>
+            </li>
+                        <li>
+                <a class="clearfix" href="https://blog.csdn.net/malefactor/article/category/1107508">
+                    <span class="title oneline">作弊</span>
+                    <span class="count float-right">1篇</span>
+                </a>
+            </li>
+                        <li>
+                <a class="clearfix" href="https://blog.csdn.net/malefactor/article/category/1476127">
+                    <span class="title oneline">社交挖掘</span>
+                    <span class="count float-right">2篇</span>
+                </a>
+            </li>
+                        <li>
+                <a class="clearfix" href="https://blog.csdn.net/malefactor/article/category/1107509">
+                    <span class="title oneline">内容作弊</span>
+                    <span class="count float-right">1篇</span>
+                </a>
+            </li>
+                    </ul>
+    </div>
+        <p class="text-center">
+        <a class="btn btn-link-blue flexible-btn" data-fbox="aside-archive">展开</a>
+    </p>
+    </div>
+		    <div id="asideArchive" class="aside-box flexible-box">
+    <h3 class="aside-title">归档</h3>
+    <div class="aside-content">
+        <ul class="archive-list">
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/malefactor/article/month/2018/08">
+                    2018年8月                    <span class="count float-right">2篇</span>
+                </a>
+            </li>
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/malefactor/article/month/2018/07">
+                    2018年7月                    <span class="count float-right">1篇</span>
+                </a>
+            </li>
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/malefactor/article/month/2018/05">
+                    2018年5月                    <span class="count float-right">1篇</span>
+                </a>
+            </li>
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/malefactor/article/month/2018/02">
+                    2018年2月                    <span class="count float-right">1篇</span>
+                </a>
+            </li>
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/malefactor/article/month/2017/12">
+                    2017年12月                    <span class="count float-right">2篇</span>
+                </a>
+            </li>
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/malefactor/article/month/2017/06">
+                    2017年6月                    <span class="count float-right">1篇</span>
+                </a>
+            </li>
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/malefactor/article/month/2017/03">
+                    2017年3月                    <span class="count float-right">2篇</span>
+                </a>
+            </li>
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/malefactor/article/month/2016/11">
+                    2016年11月                    <span class="count float-right">1篇</span>
+                </a>
+            </li>
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/malefactor/article/month/2016/10">
+                    2016年10月                    <span class="count float-right">2篇</span>
+                </a>
+            </li>
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/malefactor/article/month/2016/09">
+                    2016年9月                    <span class="count float-right">2篇</span>
+                </a>
+            </li>
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/malefactor/article/month/2016/08">
+                    2016年8月                    <span class="count float-right">2篇</span>
+                </a>
+            </li>
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/malefactor/article/month/2016/07">
+                    2016年7月                    <span class="count float-right">2篇</span>
+                </a>
+            </li>
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/malefactor/article/month/2016/06">
+                    2016年6月                    <span class="count float-right">1篇</span>
+                </a>
+            </li>
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/malefactor/article/month/2016/05">
+                    2016年5月                    <span class="count float-right">3篇</span>
+                </a>
+            </li>
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/malefactor/article/month/2016/04">
+                    2016年4月                    <span class="count float-right">4篇</span>
+                </a>
+            </li>
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/malefactor/article/month/2016/03">
+                    2016年3月                    <span class="count float-right">4篇</span>
+                </a>
+            </li>
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/malefactor/article/month/2016/02">
+                    2016年2月                    <span class="count float-right">4篇</span>
+                </a>
+            </li>
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/malefactor/article/month/2016/01">
+                    2016年1月                    <span class="count float-right">4篇</span>
+                </a>
+            </li>
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/malefactor/article/month/2015/12">
+                    2015年12月                    <span class="count float-right">2篇</span>
+                </a>
+            </li>
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/malefactor/article/month/2014/12">
+                    2014年12月                    <span class="count float-right">1篇</span>
+                </a>
+            </li>
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/malefactor/article/month/2014/10">
+                    2014年10月                    <span class="count float-right">2篇</span>
+                </a>
+            </li>
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/malefactor/article/month/2014/09">
+                    2014年9月                    <span class="count float-right">5篇</span>
+                </a>
+            </li>
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/malefactor/article/month/2013/06">
+                    2013年6月                    <span class="count float-right">1篇</span>
+                </a>
+            </li>
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/malefactor/article/month/2012/12">
+                    2012年12月                    <span class="count float-right">1篇</span>
+                </a>
+            </li>
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/malefactor/article/month/2012/03">
+                    2012年3月                    <span class="count float-right">4篇</span>
+                </a>
+            </li>
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/malefactor/article/month/2012/02">
+                    2012年2月                    <span class="count float-right">3篇</span>
+                </a>
+            </li>
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/malefactor/article/month/2012/01">
+                    2012年1月                    <span class="count float-right">2篇</span>
+                </a>
+            </li>
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/malefactor/article/month/2011/12">
+                    2011年12月                    <span class="count float-right">1篇</span>
+                </a>
+            </li>
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/malefactor/article/month/2010/08">
+                    2010年8月                    <span class="count float-right">1篇</span>
+                </a>
+            </li>
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/malefactor/article/month/2010/07">
+                    2010年7月                    <span class="count float-right">1篇</span>
+                </a>
+            </li>
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/malefactor/article/month/2008/01">
+                    2008年1月                    <span class="count float-right">1篇</span>
+                </a>
+            </li>
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/malefactor/article/month/2007/09">
+                    2007年9月                    <span class="count float-right">1篇</span>
+                </a>
+            </li>
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/malefactor/article/month/2007/08">
+                    2007年8月                    <span class="count float-right">1篇</span>
+                </a>
+            </li>
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/malefactor/article/month/2007/07">
+                    2007年7月                    <span class="count float-right">2篇</span>
+                </a>
+            </li>
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/malefactor/article/month/2007/06">
+                    2007年6月                    <span class="count float-right">1篇</span>
+                </a>
+            </li>
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/malefactor/article/month/2007/04">
+                    2007年4月                    <span class="count float-right">4篇</span>
+                </a>
+            </li>
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/malefactor/article/month/2007/02">
+                    2007年2月                    <span class="count float-right">1篇</span>
+                </a>
+            </li>
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/malefactor/article/month/2007/01">
+                    2007年1月                    <span class="count float-right">2篇</span>
+                </a>
+            </li>
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/malefactor/article/month/2006/12">
+                    2006年12月                    <span class="count float-right">3篇</span>
+                </a>
+            </li>
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/malefactor/article/month/2006/11">
+                    2006年11月                    <span class="count float-right">5篇</span>
+                </a>
+            </li>
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/malefactor/article/month/2006/10">
+                    2006年10月                    <span class="count float-right">2篇</span>
+                </a>
+            </li>
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/malefactor/article/month/2006/07">
+                    2006年7月                    <span class="count float-right">2篇</span>
+                </a>
+            </li>
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/malefactor/article/month/2006/06">
+                    2006年6月                    <span class="count float-right">1篇</span>
+                </a>
+            </li>
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/malefactor/article/month/2006/05">
+                    2006年5月                    <span class="count float-right">3篇</span>
+                </a>
+            </li>
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/malefactor/article/month/2006/04">
+                    2006年4月                    <span class="count float-right">4篇</span>
+                </a>
+            </li>
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/malefactor/article/month/2006/03">
+                    2006年3月                    <span class="count float-right">1篇</span>
+                </a>
+            </li>
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/malefactor/article/month/2006/01">
+                    2006年1月                    <span class="count float-right">2篇</span>
+                </a>
+            </li>
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/malefactor/article/month/2005/12">
+                    2005年12月                    <span class="count float-right">2篇</span>
+                </a>
+            </li>
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/malefactor/article/month/2005/11">
+                    2005年11月                    <span class="count float-right">4篇</span>
+                </a>
+            </li>
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/malefactor/article/month/2005/09">
+                    2005年9月                    <span class="count float-right">1篇</span>
+                </a>
+            </li>
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/malefactor/article/month/2005/07">
+                    2005年7月                    <span class="count float-right">3篇</span>
+                </a>
+            </li>
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/malefactor/article/month/2005/06">
+                    2005年6月                    <span class="count float-right">7篇</span>
+                </a>
+            </li>
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/malefactor/article/month/2004/11">
+                    2004年11月                    <span class="count float-right">2篇</span>
+                </a>
+            </li>
+                    </ul>
+    </div>
+        <p class="text-center">
+        <a class="btn btn-link-blue flexible-btn" data-fbox="aside-archive">展开</a>
+    </p>
+    </div>
+		    <div id="asideHotArticle" class="aside-box">
+	<h3 class="aside-title">热门文章</h3>
+	<div class="aside-content">
+		<ul class="hotArticle-list csdn-tracking-statistics tracking-click" data-mod="popu_521">
+							<li>
+					<a href="https://blog.csdn.net/malefactor/article/details/50550211">自然语言处理中的Attention Model：是什么及为什么</a>
+					<p class="read">阅读量：<span>84401</span></p>
+				</li>
+							<li>
+					<a href="https://blog.csdn.net/malefactor/article/details/51476961">Batch Normalization导读</a>
+					<p class="read">阅读量：<span>54606</span></p>
+				</li>
+							<li>
+					<a href="https://blog.csdn.net/malefactor/article/details/72853720">机器码农：深度学习自动编程</a>
+					<p class="read">阅读量：<span>47985</span></p>
+				</li>
+							<li>
+					<a href="https://blog.csdn.net/malefactor/article/details/50436735">深度学习与自然语言处理之五：从RNN到LSTM</a>
+					<p class="read">阅读量：<span>47679</span></p>
+				</li>
+							<li>
+					<a href="https://blog.csdn.net/malefactor/article/details/51078135">自然语言处理中CNN模型几种常见的Max Pooling操作</a>
+					<p class="read">阅读量：<span>44510</span></p>
+				</li>
+					</ul>
+	</div>
+</div>
+		    <div id="asideNewComments" class="aside-box">
+    <h3 class="aside-title">最新评论</h3>
+    <div class="aside-content">
+        <ul class="newcomment-list">
+                        <li>
+                <a class="title text-truncate" target="_blank" href="https://blog.csdn.net/malefactor/article/details/39312929#comments">博主新书：《大数据日知录：架构与算...</a>
+                <p class="comment">
+                    <a href="https://my.csdn.net/weixin_43365682" class="user-name" target="_blank">weixin_43365682</a>：您好，我是人民邮电出版社的约稿编辑，想帮您出本书。                </p>
+            </li>
+                        <li>
+                <a class="title text-truncate" target="_blank" href="https://blog.csdn.net/malefactor/article/details/82154224#comments">深度学习中的Normalizati...</a>
+                <p class="comment">
+                    <a href="https://my.csdn.net/guoyuhaoaaa" class="user-name" target="_blank">guoyuhaoaaa</a>：我感觉batch-Normalization的方式减去均值除以标准差，是不是只能把原始分布变为均值...                </p>
+            </li>
+                        <li>
+                <a class="title text-truncate" target="_blank" href="https://blog.csdn.net/malefactor/article/details/78767781#comments">深度学习中的注意力机制(2017版)</a>
+                <p class="comment">
+                    <a href="https://my.csdn.net/Lord_sh" class="user-name" target="_blank">Lord_sh</a>：[reply]u012354697[/reply]
+good                </p>
+            </li>
+                        <li>
+                <a class="title text-truncate" target="_blank" href="https://blog.csdn.net/malefactor/article/details/52832134#comments">深度学习解决机器阅读理解任务的研究...</a>
+                <p class="comment">
+                    <a href="https://my.csdn.net/sinat_30822007" class="user-name" target="_blank">sinat_30822007</a>：写的很好，收获很大                </p>
+            </li>
+                        <li>
+                <a class="title text-truncate" target="_blank" href="https://blog.csdn.net/malefactor/article/details/81050389#comments">社交搜索Graph Search技...</a>
+                <p class="comment">
+                    <a href="https://my.csdn.net/Edin_BlackPoint" class="user-name" target="_blank">Edin_BlackPoint</a>：写的很详细 对思路的拓展很有帮助 谢谢作者                </p>
+            </li>
+                    </ul>
+    </div>
+</div>
+		<div id="asideFooter">
+				<div class="aside-box">
+			<div class="persion_article">
+			</div>
+		</div>
+	</div>
+</aside>
+<script src="https://csdnimg.cn/pubfooter/js/publib_footer-1.0.3.js" data-isfootertrack="false" type="text/javascript"></script>
+<script>
+	$("a.flexible-btn").click(function(){
+		$(this).parents('div.aside-box').removeClass('flexible-box');
+		$(this).remove();
+	})
+</script>
+</div>
+<div class="mask-dark"></div>
+<div class="tool-box">
+	<ul class="meau-list">
+		<li class="btn-like-box long-width">
+			<button class=" long-height hover-box btn-like " title="点赞">
+				<svg class="icon active hover-hide" aria-hidden="true">
+					<use xlink:href="#csdnc-thumbsup-ok"></use>
+				</svg>
+				<svg class="icon no-active hover-hide" aria-hidden="true">
+					<use xlink:href="#csdnc-thumbsup"></use>
+				</svg>
+				<span class="hover-show text-box text">
+					<span class="no-active">点赞</span>
+					<span class="active">取消点赞</span>
+				</span>
+				<p>11</p>
+			</button>
+		</li>
+		<li class="">
+						<a class="btn-comments long-height hover-box" title="写评论" href="#commentBox">
+				<svg class="icon hover-hide" aria-hidden="true">
+					<use xlink:href="#csdnc-comments"></use>
+				</svg>
+				<span class="hover-show text">评论</span>
+				<p class="">
+						5				</p>
+			</a>
+		</li>
+		<li class="toc-container-box" id="liTocBox">
+			<button class="btn-toc low-height hover-box" title="目录">
+				<svg class="icon hover-hide" aria-hidden="true">
+					<use xlink:href="#csdnc-contents"></use>
+				</svg>
+				<span class="hover-show text">目录</span>
+			</button>
+			<div class="toc-container">
+				<div class="pos-box">
+					<div class="icon-arrow"></div>
+					<div class="scroll-box">
+						<div class="toc-box"></div>
+					</div>
+				</div>
+				<div class="opt-box">
+					<button class="btn-opt prev nomore" title="向上">
+						<svg class="icon" aria-hidden="true">
+							<use xlink:href="#csdnc-chevronup"></use>
+						</svg>
+					</button>
+					<button class="btn-opt next">
+						<svg class="icon" aria-hidden="true">
+							<use xlink:href="#csdnc-chevrondown"></use>
+						</svg>
+					</button>
+				</div>
+			</div>
+		</li>
+		<li>
+			<button class="btn-bookmark low-height hover-box" title="收藏">
+				<svg class="icon active hover-hide" aria-hidden="true">
+					<use xlink:href="#csdnc-bookmark-ok"></use>
+				</svg>
+				<svg class="icon no-active hover-hide" aria-hidden="true">
+					<use xlink:href="#csdnc-bookmark"></use>
+				</svg>
+					<span class="hover-show text">收藏</span>
+				<!-- <span class="hover-show text-box text">
+					<span class="no-active">收藏</span>
+					<span class="active">取消收藏</span>
+				</span> -->
+			</button>
+		</li>
+				<li class="bdsharebuttonbox">
+			<button class="btn-comments low-height hover-box" >
+				<a href="#" class="bds_weixin clear-share-style" data-cmd="weixin" title="手机看"></a>
+				<svg class="icon hover-hide" aria-hidden="true">
+					<use xlink:href="#csdnc-wechat"></use>
+				</svg>
+				<span class="hover-show text text3">
+					手机看
+				</span>
+			</button>
+		</li>
+							<li class="widescreen-hide">
+				<a class="btn-comments low-height hover-box" href="https://blog.csdn.net/malefactor/article/details/72853720" title="机器码农：深度学习自动编程">
+					<svg class="icon hover-hide" aria-hidden="true">
+						<use xlink:href="#csdnc-shangyiye"></use>
+					</svg>
+					<span class="hover-show text text3">上一篇</span>
+				</a>
+			</li>
+								<li class="widescreen-hide">
+			<a class="btn-comments hover-box low-height" href="https://blog.csdn.net/malefactor/article/details/78768210" title="通过不断重置学习率来逃离局部极值点">
+				<svg class="icon hover-hide" aria-hidden="true">
+					<use xlink:href="#csdnc-xiayiye"></use>
+				</svg>
+				<span class="hover-show text text3">下一篇</span>
+			</a>
+		</li>
+				
+		<!-- 宽屏更多按钮 -->
+		<li class="widescreen-more">
+			<a class="btn-comments chat-ask-button low-height hover-box" title="快问" href="#chatqa">
+				<svg class="icon hover-hide" aria-hidden="true">
+					<use xlink:href="#csdnc-more"></use>
+				</svg>
+				<span class="hover-show text">更多</span>
+				
+			</a>
+			<ul class="widescreen-more-box">
+													<li class="widescreen-more">
+						<a class="btn-comments low-height hover-box" href="https://blog.csdn.net/malefactor/article/details/72853720" title="机器码农：深度学习自动编程">
+							<svg class="icon hover-hide" aria-hidden="true">
+								<use xlink:href="#csdnc-shangyiye"></use>
+							</svg>
+							<span class="hover-show text text3">上一篇</span>
+						</a>
+					</li>
+																<li class="widescreen-more">
+					<a class="btn-comments hover-box low-height" href="https://blog.csdn.net/malefactor/article/details/78768210" title="通过不断重置学习率来逃离局部极值点">
+						<svg class="icon hover-hide" aria-hidden="true">
+							<use xlink:href="#csdnc-xiayiye"></use>
+						</svg>
+						<span class="hover-show text text3">下一篇</span>
+					</a>
+				</li>
+							</ul>
+		</li>
+	</ul>
+</div>
+<script>window._bd_share_config = { "common": { "bdSnsKey": {}, "bdText": "", "bdMini": "1", "bdMiniList": false, "bdPic": "", "bdStyle": "0", "bdSize": "16" }, "share": {} }; with (document) 0[(getElementsByTagName('head')[0] || body).appendChild(createElement('script')).src = 'https://csdnimg.cn/static/api/js/share.js?v=89860594'];</script>
+<script>
+    var recommendCount = 10;
+    recommendCount = recommendCount > 1 ? (recommendCount + (recommendCount>6 ? 2 : 1)) : recommendCount;
+    var articleTit = articleTitles;
+    var ChannelId = 28;
+    var articleId = "78767781";
+    var commentscount = 5;
+    var islock = false;
+    var curentUrl = "https://blog.csdn.net/malefactor/article/details/78767781";
+    var myUrl = "https://my.csdn.net/";
+    //1禁止评论，2正常
+    var commentAuth = 2;
+    //百度搜索
+    var baiduKey = "%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6";
+    var needInsertBaidu = true;
+    // 代码段样式
+    var codeStyle = '';
+		var highlight = ["\u6df1\u5ea6\u5b66\u4e60","\u6ce8\u610f\u529b","\u673a\u5236","2017"];//高亮数组
+		// 相关推荐博主数据
+    var RecommendBlogExpertList = [{"user_name":"fengbingchun","nick_name":"fengbingchun","avatar":"https:\/\/avatar.csdn.net\/6\/6\/F\/3_fengbingchun.jpg","is_expert":true,"article_count":729},{"user_name":"u011734144","nick_name":"\u7530\u91ce\u4e0a\u7684\u5e0c\u671b","avatar":"https:\/\/avatar.csdn.net\/4\/0\/A\/3_u011734144.jpg","is_expert":true,"article_count":247},{"user_name":"fendouaini","nick_name":"Tensorflowai","avatar":"https:\/\/avatar.csdn.net\/7\/4\/7\/3_fendouaini.jpg","is_expert":false,"article_count":159},{"user_name":"chuchus","nick_name":"yichudu","avatar":"https:\/\/avatar.csdn.net\/0\/5\/F\/3_chuchus.jpg","is_expert":false,"article_count":824},{"user_name":"jdbc","nick_name":"\u6570\u636e\u5a03\u6398","avatar":"https:\/\/avatar.csdn.net\/8\/4\/B\/3_jdbc.jpg","is_expert":false,"article_count":487},{"user_name":"tMb8Z9Vdm66wH68VX1","nick_name":"\u6570\u636e\u6d3eTHU","avatar":"https:\/\/avatar.csdn.net\/8\/9\/2\/3_tmb8z9vdm66wh68vx1.jpg","is_expert":false,"article_count":507},{"user_name":"paper_reader","nick_name":"paper_reader","avatar":"https:\/\/avatar.csdn.net\/B\/8\/6\/3_paper_reader.jpg","is_expert":false,"article_count":9},{"user_name":"jinyuan7708","nick_name":"\u4e91\u90b1\u4fa0\u5ba2","avatar":"https:\/\/avatar.csdn.net\/6\/5\/1\/3_jinyuan7708.jpg","is_expert":false,"article_count":28},{"user_name":"wangyanbeilin","nick_name":"wy_19940822","avatar":"https:\/\/avatar.csdn.net\/0\/3\/0\/3_wangyanbeilin.jpg","is_expert":false,"article_count":5},{"user_name":"ch1209498273","nick_name":"\u82a6\u91d1\u5b87","avatar":"https:\/\/avatar.csdn.net\/7\/0\/6\/3_ch1209498273.jpg","is_expert":false,"article_count":263}];
+		
+		var articleType = 1;
+		var CopyrightContent = '';
+</script>
+<script src="https://csdnimg.cn/public/sandalstrap/1.4/js/sandalstrap.min.js"></script>
+<script src="https://csdnimg.cn/release/phoenix/vendor/pagination/paging.js"></script>
+<script src='https://csdnimg.cn/public/common/gotop/js/goTop-v1.0.min.js?v201803151422'></script>
+<script>
+    GoTop({
+        right: 8,
+        hasReport: true,
+        reportFun: function() {
+            showReport(false,articleTit);
+        }
+    })
+</script>
+<script src="https://g.csdnimg.cn/login-box/1.0.1/login-box.js"></script>
+<script src="https://csdnimg.cn/release/phoenix/template/js/common-ff25a7a98a.min.js"></script>
+<script src="https://csdnimg.cn/release/phoenix/template/js/detail-59cd39e050.min.js"></script>
+<script src="https://csdnimg.cn/release/phoenix/themes/skin3-template/skin3-template-9376486353.min.js"></script>
+<!-- <script type="text/javascript" src="//g.csdnimg.cn/check-adblock/1.0.4/check-adblock.js"></script> -->
+<script src="https://csdnimg.cn/search/baidu_search-1.1.2.js?v=201802071056&autorun=true&install=true&keyword=%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6"  type="text/javascript"></script>
+</body>
+<!-- 第四范式SDK -->
+
+<!-- 高亮未与 markdown兼容  -->
+	<link rel="stylesheet" href="https://csdnimg.cn/release/blog_editor_html/release1.3.1/ckeditor/plugins/chart/chart.css" />
+	<script type="text/javascript" src="https://csdnimg.cn/release/blog_editor_html/release1.3.1/ckeditor/plugins/chart/lib/chart.min.js"></script>
+	<script type="text/javascript" src="https://csdnimg.cn/release/blog_editor_html/release1.3.1/ckeditor/plugins/chart/widget2chart.js"></script>
+	<link rel="stylesheet" href="https://csdnimg.cn/release/blog_editor_html/release1.3.1/ckeditor/plugins/codesnippet/lib/highlight/styles/atom-one-dark.css">
+	<script type="text/javascript" src="https://csdnimg.cn/release/phoenix/production/pc_wap_common-676a063698.js" /></script>
+
+	<script type="text/javascript">
+	$(function(){
+		var allEscRegex = /&(lt|gt|amp|quot|nbsp|shy|#\d{1,5});/g,
+		    namedEntities = {
+					lt: '<',
+					gt: '>',
+					amp: '&',
+					quot: '"',
+					nbsp: '\u00a0',
+					shy: '\u00ad'
+				}
+		var allEscDecode = function( match, code ) {
+				return namedEntities[ code ];
+		};
+		htmlDecodeAttr = function( text ) {
+				return text.replace( allEscRegex, allEscDecode );
+		}
+	  hljs.initHighlightingOnLoad();
+	  hljs.initCopyButtonOnLoad();
+	  hljs.initLineNumbersOnLoad();
+		if($('pre .language-plain').length>0){
+			$('pre .language-plain').each(function(i,e){
+				var highlightRe = hljs.highlightAuto(htmlDecodeAttr(e.innerHTML))
+				e.innerHTML = highlightRe.value;
+				e.className = 'language-'+highlightRe.language;
+			});
+		}
+	})
+	</script>
+<script type="text/javascript" src="https://static-blog.csdn.net/mdeditor/public/res/bower-libs/MathJax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+            "HTML-CSS": {
+                    linebreaks: { automatic: true, width: "94%container" },
+                    imageFont: null
+            },
+            tex2jax: {
+                preview: "none"
+            },
+            mml2jax: {
+                preview: 'none'
+            }
+    });
+</script>
+</html>
