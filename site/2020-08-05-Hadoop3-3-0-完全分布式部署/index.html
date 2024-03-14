@@ -1,0 +1,1265 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+        <meta name="author" content="Coco Wang">
+      
+      
+        <link rel="canonical" href="https://duniang818.github.io/2020-08-05-Hadoop3-3-0-%E5%AE%8C%E5%85%A8%E5%88%86%E5%B8%83%E5%BC%8F%E9%83%A8%E7%BD%B2/">
+      
+      
+        <link rel="prev" href="../2019-05-24-%E7%A0%81%E5%86%9C%E5%86%99%E5%8D%9A%E6%96%87%E6%97%B6%E5%B8%B8%E7%94%A8%E5%B7%A5%E5%85%B7jupyter_notebook-markdown-latex-md2all/">
+      
+      
+        <link rel="next" href="../%E5%AE%89%E8%A3%85%E5%8F%82%E8%80%83/">
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.11">
+    
+    
+      
+        <title>一、配置hadoop - Coco‘s笔记空间</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.7e359304.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#hadoop" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="Coco‘s笔记空间" class="md-header__button md-logo" aria-label="Coco‘s笔记空间" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Coco‘s笔记空间
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              一、配置hadoop
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var media,input,key,value,palette=__md_get("__palette");if(palette&&palette.color){"(prefers-color-scheme)"===palette.color.media&&(media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']"),palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent"));for([key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="Coco‘s笔记空间" class="md-nav__button md-logo" aria-label="Coco‘s笔记空间" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    Coco‘s笔记空间
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Welcome to MkDocs
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2018-09-26-tensorflow-day-1/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Tensorflow Day 1
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2018-10-08-Tensorflow-day-2/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Tensorflow Day 2
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2018-10-12-Tensorflow-day-4-lris-classification/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Tensorflow Day 4
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2018-10-16-windows%20%E4%B8%8A%E6%90%AD%E5%BB%BAGitHub%20page%28github.io%29%E7%AB%99%E7%82%B9%EF%BC%8C%E9%85%8D%E7%BD%AE%E4%B8%AA%E4%BA%BABlog%EF%BC%88%E4%B8%80%EF%BC%89/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Windows 10 借助Jekyll + GitPage 搭建个人Blog网站
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2018-10-17-Tensorflow%20Day%205/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Tensorflow Day 5
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2019-05-24-%E7%A0%81%E5%86%9C%E5%86%99%E5%8D%9A%E6%96%87%E6%97%B6%E5%B8%B8%E7%94%A8%E5%B7%A5%E5%85%B7jupyter_notebook-markdown-latex-md2all/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    jupyter notebook
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    一、配置hadoop
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    一、配置hadoop
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#11" class="md-nav__link">
+    <span class="md-ellipsis">
+      1.1 总纲
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#12-etchosts" class="md-nav__link">
+    <span class="md-ellipsis">
+      1.2 修改/etc/hosts，配置服务器名
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#13-etcprofile" class="md-nav__link">
+    <span class="md-ellipsis">
+      1.3 修改/etc/profile，添加环境变量
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#14-workers" class="md-nav__link">
+    <span class="md-ellipsis">
+      1.4 修改workers文件，配置从节点名
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#15" class="md-nav__link">
+    <span class="md-ellipsis">
+      1.5 设置集群服务器之间的免密登录
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#16-hadoop-4" class="md-nav__link">
+    <span class="md-ellipsis">
+      1.6 配置hadoop环境, 主要是修改4个配置文件：
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#17" class="md-nav__link">
+    <span class="md-ellipsis">
+      1.7 格式化主节点
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#18-hadoop" class="md-nav__link">
+    <span class="md-ellipsis">
+      1.8 启动hadoop
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#19-hadoop" class="md-nav__link">
+    <span class="md-ellipsis">
+      1.9 停止hadoop集群
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#20-hadooproothadoop" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.0 添加hadoop用户，非root用户启动和运行hadoop
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#centos7hiveapache-hive-312-bin" class="md-nav__link">
+    <span class="md-ellipsis">
+      二、centos7上配置hive：apache-hive-3.1.2-bin
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#21-centos7mysql" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.1. 先在centos7上配置mysql
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#22-hive" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.2. 配置hive
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#23-hive" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.3. 运行hive以及错误解决
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E5%AE%89%E8%A3%85%E5%8F%82%E8%80%83/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    开发环境搭建
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#11" class="md-nav__link">
+    <span class="md-ellipsis">
+      1.1 总纲
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#12-etchosts" class="md-nav__link">
+    <span class="md-ellipsis">
+      1.2 修改/etc/hosts，配置服务器名
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#13-etcprofile" class="md-nav__link">
+    <span class="md-ellipsis">
+      1.3 修改/etc/profile，添加环境变量
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#14-workers" class="md-nav__link">
+    <span class="md-ellipsis">
+      1.4 修改workers文件，配置从节点名
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#15" class="md-nav__link">
+    <span class="md-ellipsis">
+      1.5 设置集群服务器之间的免密登录
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#16-hadoop-4" class="md-nav__link">
+    <span class="md-ellipsis">
+      1.6 配置hadoop环境, 主要是修改4个配置文件：
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#17" class="md-nav__link">
+    <span class="md-ellipsis">
+      1.7 格式化主节点
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#18-hadoop" class="md-nav__link">
+    <span class="md-ellipsis">
+      1.8 启动hadoop
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#19-hadoop" class="md-nav__link">
+    <span class="md-ellipsis">
+      1.9 停止hadoop集群
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#20-hadooproothadoop" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.0 添加hadoop用户，非root用户启动和运行hadoop
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#centos7hiveapache-hive-312-bin" class="md-nav__link">
+    <span class="md-ellipsis">
+      二、centos7上配置hive：apache-hive-3.1.2-bin
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#21-centos7mysql" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.1. 先在centos7上配置mysql
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#22-hive" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.2. 配置hive
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#23-hive" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.3. 运行hive以及错误解决
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+<h1 id="hadoop">一、配置hadoop</h1>
+<h2 id="11">1.1 总纲</h2>
+<ul>
+<li>采用1+1+3的集群配置（一台主服务器，一台备主服务器，3台从服务器）</li>
+<li>这些配置都只是先在master1作，然后用命SCP拷贝复制到其它服务器</li>
+<li>下载最新hadoop镜像：hadoop-3.3.0</li>
+<li>解压到相应目录</li>
+<li>配置环境变量在/etc/hosts, /etc/profile，hadoop-en.sh, yarn-en.sh, mapreduce-env.sh</li>
+<li>修改文件目录权限</li>
+<li>设置免密登录</li>
+<li>配置相应文件：workers, core-site.xmlhdfs-site.xmlmapred-site.xmlyarn-site.xml</li>
+</ul>
+<h2 id="12-etchosts">1.2 修改/etc/hosts，配置服务器名</h2>
+<pre><code class="language-shell">ip1.226 master1
+ip2.229 master2
+ip3.227 worker1
+ip4.228 worker2
+ip5.232 worker3
+</code></pre>
+<ul>
+<li>将master1上的/etc/hosts传到其他服务器上，并且执行source /etc/profile，使其生效：</li>
+</ul>
+<pre><code class="language-shell">scp /etc/hosts root@master2:/etc/
+scp /etc/hosts root@worker1:/etc/
+scp /etc/hosts root@worker2:/etc/
+scp /etc/hosts root@worker3:/etc/
+</code></pre>
+<h2 id="13-etcprofile">1.3 修改/etc/profile，添加环境变量</h2>
+<pre><code class="language-shell"># for hadoop
+export MYSQL_HOVE=/usr/local/mysql
+export JAVA_HOME=/usr/lib/jvm/jre-1.8.0-openjdk-1.8.0.181-7.b13.el7.x86_64
+#export JAVA_HOME=/usr/lib/jvm/jre
+export HADOOP_HOME=/opt/hadoop3/hadoop-3.3.0
+export HIVE_HOME=/opt/hive/apache-hive-3.1.2-bin
+export PATH=.:$HADOOP_HOME/bin:$JAVA_HOME/bin:$HIVE_HOME/bin:$MYSQL_HOME/bin:$PATH
+export CLASSPATH=.:$JAVA_HOME/lib/dt.jar:$JAVA_HOME/tools.jar:$HIVE_HOME/bin
+</code></pre>
+<pre><code class="language-shell">source /etc/profile
+</code></pre>
+<ul>
+<li>将master1上的/etc/profile传到其他服务器上， 并且执行source /etc/profile，使其生效：</li>
+</ul>
+<pre><code class="language-shell">scp /etc/profile root@master2:/etc/
+scp /etc/profile root@worker1:/etc/
+scp /etc/profile root@worker2:/etc/
+scp /etc/profile root@worker3:/etc/
+</code></pre>
+<p><strong>hadoop是守护线程 读取不到 /etc/profile 里面配置的JAVA_HOME路径 ，
+所以在 hadoop-env.sh yarn-env.sh mapreduce-env.sh配置 JAVA_HOME, 这样才能读取到JAVA_HOME</strong></p>
+<ul>
+<li>再登录到每个服务器上去：source  /etc/profile, ./hadoop-env.sh, ./yarn-env.sh, ./mapreduce-env.sh</li>
+</ul>
+<h2 id="14-workers">1.4 修改workers文件，配置从节点名</h2>
+<pre><code class="language-dockerfile"># 路径：hadoop-3.3.0\hadoop-3.3.0\hadoop-3.3.0\etc\hadoop\
+worker1
+worker2
+worker3
+</code></pre>
+<h2 id="15">1.5 设置集群服务器之间的免密登录</h2>
+<pre><code class="language-shell">ssh master2 # 第一次需要输入yes,进行确认。如果登录到master2，表示已经可以免密登录了，然后exit退出。
+ssh worker1
+ssh worker2
+ssh worker3
+</code></pre>
+<p>如果不用密码就可以登录，则不用设置免密登录，如果不可以，则需要进行免密设置步骤</p>
+<p>ssh生成相应密钥对：id_rsa私钥和id_rsa.pub公钥。</p>
+<pre><code class="language-shell">ssh-keygen -t rsa -P ''
+</code></pre>
+<p>默认是存在/当前user/.ssh（/root/.ssh或者/home/user/.ssh）下的！</p>
+<p>有了密钥对：将id_rsa.pub加到授权中</p>
+<pre><code class="language-shell"># cat id_rsa.pub &gt;&gt; authorized_keys
+</code></pre>
+<p>试一下是否本地免密登陆设置成功：</p>
+<pre><code class="language-shell">ssh localhost  #第一次登陆需要确定,输入yes
+</code></pre>
+<p>ok！没有问题，那么配置其他服务器，其实只需要把本机master1的id_rsa.pub复制到其他服务器上就可以了！这里就选择ssh-copy-id命令传送到其他服务器上</p>
+<pre><code class="language-shell"># ssh-copy-id root@master2
+# ssh-copy-id root@worker1
+# ssh-copy-id root@worker2
+# ssh-copy-id root@worker3
+</code></pre>
+<ul>
+<li>master1主节点配置，先在主节点配置，然后在用scp传到其它服务器上</li>
+</ul>
+<h2 id="16-hadoop-4">1.6 配置hadoop环境, 主要是修改4个配置文件：</h2>
+<ul>
+<li>core-site.xml</li>
+<li>hdfs-site.xml</li>
+<li>mapred-site.xml</li>
+<li>
+<p>yarn-site.xml</p>
+</li>
+<li>
+<p>修改core-site.xml</p>
+</li>
+</ul>
+<pre><code class="language-xml">&lt;configuration&gt;
+        &lt;property&gt;
+                &lt;name&gt;fs.defaultFS&lt;/name&gt;
+                &lt;value&gt;hdfs://master1:9000&lt;/value&gt;
+        &lt;/property&gt;
+        &lt;property&gt;
+                &lt;name&gt;io.file.buffer.size&lt;/name&gt;
+                &lt;value&gt;131072&lt;/value&gt;
+        &lt;/property&gt;
+        &lt;property&gt;
+                &lt;name&gt;hadoop.tmp.dir&lt;/name&gt;
+                &lt;value&gt;/opt/hadoop3/tmp&lt;/value&gt;
+        &lt;/property&gt;
+&lt;/configuration&gt;
+</code></pre>
+<ul>
+<li>hdfs-site.xml</li>
+</ul>
+<pre><code class="language-xml">&lt;configuration&gt;
+    &lt;property&gt;
+        &lt;name&gt;dfs.namenode.name.dir&lt;/name&gt;
+        &lt;value&gt;file:///${hadoop.tmp.dir}/dfs/nn&lt;/value&gt;
+    &lt;/property&gt;
+    &lt;property&gt;
+        &lt;name&gt;dfs.namenode.secondary.http-address&lt;/name&gt;
+        &lt;value&gt;master2:50000&lt;/value&gt;
+    &lt;/property&gt;
+    &lt;property&gt;
+        &lt;name&gt;dfs.blocksize&lt;/name&gt;
+        &lt;value&gt;268435456&lt;/value&gt;
+    &lt;/property&gt;
+    &lt;property&gt;
+        &lt;name&gt;dfs.namenode.handler.count&lt;/name&gt;
+        &lt;value&gt;100&lt;/value&gt;
+    &lt;/property&gt;
+    &lt;property&gt;
+        &lt;name&gt;dfs.replication&lt;/name&gt;
+        &lt;value&gt;2&lt;/value&gt;
+    &lt;/property&gt;    
+&lt;/configuration&gt;
+</code></pre>
+<ul>
+<li>mapred-site.xml</li>
+</ul>
+<pre><code>&lt;configuration&gt;
+    &lt;property&gt;
+            &lt;name&gt;mapreduce.framework.name&lt;/name&gt;
+            &lt;value&gt;yarn&lt;/value&gt;
+    &lt;/property&gt;
+&lt;/configuration&gt;
+</code></pre>
+<ul>
+<li>yarn-site.xml</li>
+</ul>
+<pre><code class="language-xml">&lt;configuration&gt;
+    &lt;property&gt;
+        &lt;name&gt;yarn.acl.enable&lt;/name&gt;
+        &lt;value&gt;true&lt;/value&gt;
+    &lt;/property&gt;
+    &lt;property&gt;
+        &lt;name&gt;yarn.admin.acl&lt;/name&gt;
+        &lt;value&gt;Admin ACL&lt;/value&gt;
+    &lt;/property&gt;
+    &lt;property&gt;
+        &lt;name&gt;yarn.log-aggregation-enable&lt;/name&gt;
+        &lt;value&gt;false&lt;/value&gt;
+    &lt;/property&gt;
+    &lt;property&gt;
+        &lt;name&gt;yarn.nodemanager.aux-services&lt;/name&gt;
+        &lt;value&gt;mapreduce_shuffle&lt;/value&gt;
+    &lt;/property&gt;
+&lt;/configuration&gt;
+</code></pre>
+<p>然后把主节点的所有配置文件，以及hadoop都复制到其它服务器上：</p>
+<pre><code class="language-shell">scp -r /opt/hadoop3/ root@master2:/opt/
+scp -r /opt/hadoop3/ root@worker1:/opt/
+scp -r /opt/hadoop3/ root@worker2:/opt/
+scp -r /opt/hadoop3/ root@worker3:/opt/
+</code></pre>
+<h2 id="17">1.7 格式化主节点</h2>
+<pre><code class="language-shell">hadoop namenode -format
+</code></pre>
+<h2 id="18-hadoop">1.8 启动hadoop</h2>
+<pre><code class="language-shell">start-all.sh
+</code></pre>
+<p>root启动报错：</p>
+<pre><code class="language-shell">Starting namenodes on [master1]
+ERROR: Attempting to operate on hdfs namenode as root
+ERROR: but there is no HDFS_NAMENODE_USER defined. Aborting operation.
+Starting datanodes
+ERROR: Attempting to operate on hdfs datanode as root
+ERROR: but there is no HDFS_DATANODE_USER defined. Aborting operation.
+Starting secondary namenodes [master2]
+ERROR: Attempting to operate on hdfs secondarynamenode as root
+ERROR: but there is no HDFS_SECONDARYNAMENODE_USER defined. Aborting operation.
+Starting resourcemanager
+ERROR: Attempting to operate on yarn resourcemanager as root
+ERROR: but there is no YARN_RESOURCEMANAGER_USER defined. Aborting operation.
+Starting nodemanagers
+ERROR: Attempting to operate on yarn nodemanager as root
+ERROR: but there is no YARN_NODEMANAGER_USER defined. Aborting operation.
+</code></pre>
+<p>解决办法：在start-yarn.sh、stop-yarn.sh、 start-all.sh、start-dfs.sh、stop-dfs.sh文件顶部添加以下参数</p>
+<pre><code class="language-shell">[root@master1 hadoop]# cat ../../sbin/start-all.sh 
+#!/usr/bin/env bash
+HDFS_DATANODE_USER=root
+#HADOOP_SECURE_DN_USER=hdfs
+HDFS_DATANODE_SECURE_USER=root
+HDFS_NAMENODE_USER=root
+HDFS_SECONDARYNAMENODE_USER=root
+YARN_RESOURCEMANAGER_USER=root
+YARN_NODEMANAGER_USER=root
+</code></pre>
+<p>添加完成后，再将这些配置文件复制到其它服务器上</p>
+<pre><code class="language-shell">scp start-dfs.sh stop-dfs.sh start-yarn.sh stop-yarn.sh start-all.sh root@master2:/opt/hadoop3/hadoop-3.3.0/sbin/
+scp start-dfs.sh stop-dfs.sh start-yarn.sh stop-yarn.sh start-all.sh root@worker1:/opt/hadoop3/hadoop-3.3.0/sbin/
+scp start-dfs.sh stop-dfs.sh start-yarn.sh stop-yarn.sh start-all.sh root@worker2:/opt/hadoop3/hadoop-3.3.0/sbin/
+scp start-dfs.sh stop-dfs.sh start-yarn.sh stop-yarn.sh start-all.sh root@worker3:/opt/hadoop3/hadoop-3.3.0/sbin/
+</code></pre>
+<p>再次运行start-all.sh文件，错误:</p>
+<p>$-bash: /opt/hadoop3/hadoop-3.3.0/bin/hadoop: Permission denied$</p>
+<pre><code class="language-shell">[hadoop@master1 sbin]$ ./start-all.sh 
+WARNING: Attempting to start all Apache Hadoop daemons as hadoop in 10 seconds.
+WARNING: This is not a recommended production deployment configuration.
+WARNING: Use CTRL-C to abort.
+Starting namenodes on [master1]
+master1: Permission denied (publickey,gssapi-keyex,gssapi-with-mic,password).
+Starting datanodes
+worker3: Warning: Permanently added 'worker3,ip5.232' (ECDSA) to the list of known hosts.
+worker2: Permission denied (publickey,gssapi-keyex,gssapi-with-mic,password).
+worker1: Permission denied (publickey,gssapi-keyex,gssapi-with-mic,password).
+worker3: Permission denied (publickey,gssapi-keyex,gssapi-with-mic,password).
+Starting secondary namenodes [master2]
+master2: Permission denied (publickey,gssapi-keyex,gssapi-with-mic,password).
+Starting resourcemanager
+resourcemanager is running as process 34085.  Stop it first.
+Starting nodemanagers
+worker2: Permission denied (publickey,gssapi-keyex,gssapi-with-mic,password).
+worker1: Permission denied (publickey,gssapi-keyex,gssapi-with-mic,password).
+worker3: Permission denied (publickey,gssapi-keyex,gssapi-with-mic,password).
+</code></pre>
+<p>解决办法：</p>
+<pre><code class="language-shell"> chown -R root:root /opt
+ chmod -R a+x /opt/*
+</code></pre>
+<p>再运行命令start-all.sh，没有报错，启动成功。</p>
+<p>用jps命令查询进程信息，如果提示没有jps命令，则再配置一下jps命令。还可以登录浏览器查看。</p>
+<pre><code class="language-shell"># 主节点：
+jps 30996 Jps 30645 NameNode 30917 ResourceManager
+# 2主节点：
+jps 33571 Jps 33533 SecondaryNameNode
+# 从节点：
+jps 33720 Jps 33691 NodeManager 33630 DataNode
+</code></pre>
+<p><img alt="image-20200803084739284" src="media/image-20200803084739284.png" /></p>
+<p><img alt="image-20200803084825457" src="media/image-20200803084825457.png" /></p>
+<h2 id="19-hadoop">1.9 停止hadoop集群</h2>
+<ul>
+<li>
+<p>在master节点上运行stop-all.sh</p>
+</li>
+<li>
+<p>然后在worker节点上再jps检查一下，看看worker节点是否成功的被停止了。</p>
+</li>
+<li>在worker上运行：stop-all.sh,出现如下错误：</li>
+</ul>
+<pre><code class="language-markdown">service: ssh: Could not resolve hostname service: Name or service not known
+worker2: Warning: Permanently added 'worker2' (ECDSA) to the list of known hosts.
+worker1: Warning: Permanently added 'worker1' (ECDSA) to the list of known hosts.
+worker2: Permission denied (publickey,gssapi-keyex,gssapi-with-mic,password).
+worker1: Permission denied (publickey,gssapi-keyex,gssapi-with-mic,password).
+</code></pre>
+<ul>
+<li>解决办法</li>
+</ul>
+<pre><code class="language-shell">chown -R hadoop:hadoop /opt/hadoop3/
+</code></pre>
+<h2 id="20-hadooproothadoop">2.0 添加hadoop用户，非root用户启动和运行hadoop</h2>
+<p>上面都是使用的root用户运行hadoop，但是其实hadoop一般不用root用户，建议用其它用户，因此下面讲添加和配置hadoop用户该如何操作。</p>
+<ul>
+<li>所有机器添加用户hadoop和用户组hadoop</li>
+</ul>
+<pre><code class="language-shell"># 新建用户
+adduser hadoop
+# 新建用户组
+groupadd hadoop
+# 添加密码
+passwd hadoop
+# 将hadoop用户添加到hadoop用户组。前面一个hadoop是组名，后面一个hadoop是用户名
+usermod -a -G hadoop hadoop
+# 或者添加用户和用户组用以合成命令
+groupadd hadoop &amp;&amp;useradd -d /home/hadoop -g hadoop -m hadoop
+# 修改文件及文件夹的用户和用户组：
+chown -R hadoop:hadoop /opt/*
+</code></pre>
+<ul>
+<li>节点可以互相免密登录的本质是，需要在作为服务器的节点要保存来访节点（客户端）的公钥在鉴权文件（authorized_keys）中，这样才保证是经过授权的</li>
+<li>比如226的节点可以访问227，则226是客户端，227是服务器。那么就需要将226的公钥以需要免密登录的用户角色拷贝到227上，并且将其追加到227的authorized_keys文件中。最后还要保证227的文件以及目录都有免密用户权限。</li>
+<li>反之227要免密登录到226，则则227是客户端，226是服务器。那么就需要将227的公钥以需要免密登录的用户角色拷贝到226上，并且将其追加到226的authorized_keys文件中。最后还要保证226的文件以及目录都有免密用户权限。</li>
+</ul>
+<pre><code class="language-shell"># 以下操作都需要在所有需要免密登录的机器上操作, 但可以在master1上操作再拷贝到其它机器
+# 确认ssh服务已经安装并打开；
+# 打开文件/etc/ssh/sshd_config，确保以下配置已经添加(如果被&quot;#“注释了就把”#&quot;删除)：
+AuthorizedKeysFile      .ssh/authorized_keys
+PubkeyAuthentication yes
+</code></pre>
+<pre><code class="language-shell">#在master机器上输入ssh hadoop@master2，尝试ssh登录master2，此时由于未配置免密码登录，所以控制台要求输入master2的密码，如下：
+[hadoop@master1 ~]$ ssh hadoop@master2
+# 以hadoop账号登录，输入ssh-keygen -t rsa，然后一路回车，顺利生成秘钥文件，如下：
+[hadoop@master1 ~]$ ssh-keygen -t rsa
+# 配置秘钥授权文件，以hadoop账号登录master1机器，生成一个空白文件：
+[hadoop@master1 ~]$touch ~/.ssh/authorized_keys
+# 将master1自己的公钥放入文件authorized_keys中：
+cat ~/.ssh/id_rsa.pub &gt;&gt; ~/.ssh/authorized_keys
+# 以hadoop账号登录master2机器，执行以下命令，即可将master2的公钥传输到master1机器，文件名为master2.id_rsa.pub：
+[hadoop@master1 ~]scp ~/.ssh/id_rsa.pub hadoop@master1:~/.ssh/master2.id_rsa.pub
+# 期间会要求输入master1的hadoop账号的密码，输入后传输完成，在master1的/home/hadoop/.ssh目录下，多了个名为master2.id_rsa.pub的文件；
+# 在master1机器执行以下命令，即可将master2.id_rsa.pub的内容写入authorized_keys文件：
+[hadoop@master1 ~]cat ~/.ssh/master2.id_rsa.pub &gt;&gt; ~/.ssh/authorized_keys
+# 此时authorized_keys文件中已经有了master1和master2的公钥；
+# 以hadoop账号登录worker1机器，执行以下命令，即可将worker1的公钥传输到master1机器，文件名为worker1.id_rsa.pub：
+[hadoop@master1 ~]scp ~/.ssh/id_rsa.pub hadoop@master1:~/.ssh/worker1.id_rsa.pub
+# 期间会要求输入master1的hadoop账号的密码，输入后传输完成，在master1的/home/hadoop/.ssh目录下，多了个名为worker1.id_rsa.pub的文件；
+# 在master1机器执行以下命令，即可将worker1.id_rsa.pub的内容写入authorized_keys文件：
+[hadoop@master1 ~]cat ~/.ssh/worker1.id_rsa.pub &gt;&gt; ~/.ssh/authorized_keys
+# 此时authorized_keys文件中已经有了master1、master2、worker1的公钥；
+# 以同样的方式，将worker2,worker3的公钥保存在master1的authorized_keys文件
+-------------------------------------------------------------------------------------
+# 同步秘钥授权文件
+# 以hadoop账号登录master1机器，执行以下命令将秘钥授权文件同步到master2机器：
+[hadoop@master1 ~]scp ~/.ssh/authorized_keys hadoop@master2:~/.ssh/
+# 以hadoop账号登录master1机器，执行以下命令将秘钥授权文件同步到worker1机器：
+[hadoop@master1 ~]scp ~/.ssh/authorized_keys hadoop@worker1:~/.ssh/
+# 至此，秘钥授权文件已经同步到所有机器，如果前面的所有操作用的是root账号，此时已经可以免密码登录成功了，但是今天我们用的不是root账号，此时在master1输入命令ssh hadoop@master2，却发现依然要求输入master2的hadoop账号的密码，这是因为文件和文件夹权限的问题导致的，接下来解决权限问题；
+
+# 调整文件夹和文件的权限（三台机器都要执行）
+# 先调整文件夹~/.ssh的权限：
+chmod 700  ~/.ssh
+# 再调整文件~/.ssh/authorized_keys的权限：
+chmod 600  ~/.ssh/authorized_keys
+# 至此，非root账号的SSH免密码登录配置已经完成，在master2输入命令ssh hadoop@master1试试，如下，顺利登录，不需要输入密码：
+
+[hadoop@master2 ~]$ ssh hadoop@master1
+Last login: Fri Feb  8 00:36:57 2019 from 192.168.119.1
+#  重要重要重要！！！，将上面配置授权文件，同步授权文件的过程再反过来执行一遍，比如master2的公钥存在master1上，这样就可以实现以hadoop用户在master1上免密登录master2。
+# 同理其它的也是一样的。
+</code></pre>
+<ul>
+<li>修改/opt/hadoop目录和文件的所有者权限, 每一台服务器都需要执行，且chown的命令需要在root用户下执行</li>
+</ul>
+<pre><code class="language-shell">chown -R hadoop:hadoop /opt/hadoop3
+</code></pre>
+<ul>
+<li>
+<p>记得一定要重新运行命令：hadoop namenode -format， 进行节点格式化</p>
+</li>
+<li>
+<p>start-all.sh​启动所有服务</p>
+</li>
+</ul>
+<h2 id="centos7hiveapache-hive-312-bin">二、centos7上配置hive：apache-hive-3.1.2-bin</h2>
+<p>在配置和运行hive之前，需要先配置好hive的元数据库。虽然有默认的Derby数据库，但是不熟悉其操作和使用。因此还是改用习惯的mysql。centos7上已经默认用mariadb替换mysql，但是不熟悉mariadb库的任何配置以及使用，所以还是避免不了mysql，老老实实安装mysql吧。</p>
+<p>CentOS7默认数据库是mariadb,配置等用着不习惯,因此决定改成mysql,但是CentOS7的yum源中默认好像是没有mysql的。为了解决这个问题，第一次我也是按照网上的下载repo源，但是在安装的过程中还是需要联网，所以尝试第二次，下载离线的mysql二进制包：mysql-8.0.21-linux-glibc2.12-x86_64。<a href="https://dev.mysql.com/downloads/mysql/">下载地址</a></p>
+<h2 id="21-centos7mysql">2.1. 先在centos7上配置mysql</h2>
+<p>https://dev.mysql.com/downloads/mysql/</p>
+<p><img alt="" src="media/image-20200731144514908.png" /></p>
+<p>下载好后，上传到master服务器，解压到目录：/usr/local/mysql</p>
+<p>在配置mysql之前，先用命令查一下是不是以及有mysql了，如果有的话，可以利用就利用，不用新装。如果没有则需要重新安装。</p>
+<pre><code># 查询命令
+$ rpm -qa|grep mysql
+</code></pre>
+<p>配置环境变量: </p>
+<pre><code>vi /etc/profile
+</code></pre>
+<p>在文件底部添加：</p>
+<pre><code>export PATH=/usr/local/mysql/bin:$PATH
+</code></pre>
+<p>保存退出，运行命令，改变的变量生效：</p>
+<pre><code>source /etc/profile
+</code></pre>
+<p>初始化命名：</p>
+<pre><code class="language-shell">bin/mysqld --initialize --user=mysql //该步骤执行完毕，会产生一个临时密码，复制粘贴到其他地方保存，后续登录mysql需要使用
+bin/mysql_ssl_rsa_setup
+bin/mysqld_safe --user=mysql &amp;
+cp support-files/mysql.server /etc/init.d/mysql.server
+</code></pre>
+<p>在bin目录下运行命令，第一次登陆：</p>
+<pre><code>$ mysql -uroot -p'xxxxxx' //xxxx是之前记录的临时密码
+mysql &gt; use mysql;
+mysql &gt; update user set password=password('hive') where user='root';  //修改密码
+mysql &gt; exit;
+</code></pre>
+<p>重启mysql服务</p>
+<pre><code>chkconfig mysql on //开机自动启动
+$ service mysql restart
+</code></pre>
+<p>再次在bin目录下进入mysql命令行，创建一个 hive 数据库用来存储 Hive 元数据，且数据库访问的用户名和密码都为 hive。</p>
+<p>$mysql -uroot -phive$</p>
+<pre><code>mysql&gt; CREATE DATABASE hive; 
+mysql&gt; USE hive; 
+mysql&gt; CREATE USER 'hive'@'localhost' IDENTIFIED BY 'hive';
+mysql&gt; grant all on *.* to 'hive'@'%';
+mysql&gt; exit;
+</code></pre>
+<p>配置jdbc连接器:</p>
+<p>MySQL Java 连接器添加到 $HIVE_HOME/lib 目录下。我安装时使用的是 mysql-connector-java-8.0.16.jar。</p>
+<h2 id="22-hive">2.2. 配置hive</h2>
+<p>解压到指定目录，然后配置环境变量</p>
+<pre><code>export HIVE_HOME=/opt/hive/apache-hive-3.1.2-bin
+export PATH=$PATH:$HIVE_HOME/bin
+</code></pre>
+<p>修改hive-env.sh 
+        因为 Hive 使用了 Hadoop, 需要在 hive-env.sh 文件中指定 Hadoop 安装路径：</p>
+<pre><code>export JAVA_HOME=/usr/lib/jvm/jre    ##Java路径
+export HADOOP_HOME=/opt/hadoop3/hadoop-3.3.0   ##Hadoop安装路径
+export HIVE_HOME=/opt/hive/apache-hive-3.1.2-bin    ##Hive安装路径
+export HIVE_CONF_DIR=$HIVE_HOME/conf    ##Hive配置文件路径
+</code></pre>
+<p>在运行hive之前，必须创建两个路径/tmp和/user/hive/warehouse后，这样才能在hive中创建库和表</p>
+<pre><code>$HADOOP_HOME/bin/hadoop fs -mkdir       /tmp
+$HADOOP_HOME/bin/hadoop fs -mkdir -p    /user/hive/warehouse
+$HADOOP_HOME/bin/hadoop fs -chmod g+w   /tmp
+$HADOOP_HOME/bin/hadoop fs -chmod g+w   /user/hive/warehouse
+</code></pre>
+<p>修改hive-site.xml, 注意ConnectionURL每一个关键字之前有分号。</p>
+<pre><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; standalone=&quot;no&quot;?&gt;
+&lt;?xml-stylesheet type=&quot;text/xsl&quot; href=&quot;configuration.xsl&quot;?&gt;
+&lt;configuration&gt;
+    &lt;property&gt;
+        &lt;name&gt;javax.jdo.option.ConnectionURL&lt;/name&gt;
+        &lt;value&gt;jdbc:mysql://localhost:3306/hive?allowMultiQueries=true&amp;amp;useSSL=false&amp;amp;verifyServerCertificate=false&amp;amp;allowPublicKeyRetrieval=true&lt;/value&gt;
+    &lt;/property&gt;
+    &lt;property&gt;
+        &lt;name&gt;javax.jdo.option.ConnectionDriverName&lt;/name&gt;
+        &lt;value&gt;com.mysql.cj.jdbc.Driver&lt;/value&gt;
+    &lt;/property&gt;
+    &lt;property&gt;
+        &lt;name&gt;javax.jdo.option.ConnectionUserName&lt;/name&gt;
+        &lt;value&gt;hive&lt;/value&gt;
+    &lt;/property&gt;
+    &lt;property&gt;
+        &lt;name&gt;javax.jdo.option.ConnectionPassword&lt;/name&gt;
+        &lt;value&gt;hive&lt;/value&gt;
+    &lt;/property&gt;
+     &lt;property&gt;
+        &lt;name&gt;hive.metastore.warehouse.dir&lt;/name&gt;
+        &lt;value&gt;/user/hive/warehouse&lt;/value&gt;
+    &lt;/property&gt;
+     &lt;property&gt;
+        &lt;name&gt;hive.exec.scratchdir&lt;/name&gt;
+        &lt;value&gt;/tmp&lt;/value&gt;
+    &lt;/property&gt;
+    &lt;property&gt;
+        &lt;name&gt;datanucleus.readOnlyDatastore&lt;/name&gt;
+        &lt;value&gt;false&lt;/value&gt;
+    &lt;/property&gt;
+    &lt;property&gt;
+        &lt;name&gt;datanucleus.fixedDatastore&lt;/name&gt;
+        &lt;value&gt;false&lt;/value&gt;
+    &lt;/property&gt;
+    &lt;property&gt;
+        &lt;name&gt;datanucleus.autoCreateSchema&lt;/name&gt;
+        &lt;value&gt;true&lt;/value&gt;
+    &lt;/property&gt;
+    &lt;property&gt;
+        &lt;name&gt;datanucleus.autoCreateTables&lt;/name&gt;
+        &lt;value&gt;true&lt;/value&gt;
+    &lt;/property&gt;
+    &lt;property&gt;
+        &lt;name&gt;datanucleus.autoCreateColumns&lt;/name&gt;
+        &lt;value&gt;true&lt;/value&gt;
+    &lt;/property&gt;
+&lt;/configuration&gt;
+</code></pre>
+<h2 id="23-hive">2.3. 运行hive以及错误解决</h2>
+<p>运行 schematool 命令来执行初始化操作，此命令也在hive的bin目录下</p>
+<pre><code>schematool -dbType mysql -initSchema
+</code></pre>
+<p>启动hadoop，hdfs, 然后用jps查看进程。</p>
+<pre><code>./start-all.sh
+jps
+</code></pre>
+<p>这时启动hive，用beeline命令：</p>
+<pre><code class="language-shell">$HIVE_HOME/bin/beeline -u jdbc:hive2://
+</code></pre>
+<p>如果出现如下错误：</p>
+<pre><code class="language-shell">java.lang.NoSuchMethodError: com.google.common.base.Preconditions.checkArgument](https://www.cnblogs.com/syq816/p/12632028.html)
+</code></pre>
+<p>错误原因：系统找不到这个类所在的jar包或者jar包的版本不一样,系统不知道使用哪个。这里是因为hive中的jar包和hadoop中的jar包版本不一致导致的。</p>
+<p>解决办法：</p>
+<pre><code>1、com.google.common.base.Preconditions.checkArgument这个类所在的jar包为：guava.jar
+
+2、hadoop-3.2.1（路径：hadoop\share\hadoop\common\lib）中该jar包为 guava-27.0-jre.jar；而hive-3.1.2(路径：hive/lib)中该jar包为guava-19.0.1.jar
+
+3、将jar包变成一致的版本：删除hive中低版本jar包，将hadoop中高版本的复制到hive的lib中。
+</code></pre>
+<p>启动错误:</p>
+<pre><code class="language-shell">Underlying cause: java.sql.SQLNonTransientConnectionException : Public Key Retrieval is not allowed
+SQL Error code: 0
+org.apache.hadoop.hive.metastore.HiveMetaException: Failed to get schema version.
+</code></pre>
+<p>解决办法：</p>
+<pre><code># 添加--verbose选项，查看详细信息
+./schematool schematool -dbType mysql -initSchema --verbose
+# 在ConnectionURL中添加allowPublicKeyRetrieval=true， 见hive-site.html文件中的配置
+</code></pre>
+<p>启动错误:</p>
+<pre><code class="language-shell">Error applying authorization policy on hive configuration: The dir: /tmp on HDFS should be writable. Current permissions are: rwxrwxr-x
+</code></pre>
+<p>解决办法：</p>
+<pre><code>$HADOOP_HOME/bin/hadoop fs -chmod a+w   /tmp
+</code></pre>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "..", "features": [], "search": "../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.8fd75fb4.min.js"></script>
+      
+    
+  </body>
+</html>
