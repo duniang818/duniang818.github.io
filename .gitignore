@@ -4,3 +4,10 @@ node_modules
 */.DS_Store
 */*/.DS_Store
 *.sh
+/.idea/
+/_includes/
+/_layouts/
+/css/
+/fonts/
+/js/
+/less/

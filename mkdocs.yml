@@ -1,0 +1,7 @@
+site_name: Coco‘s笔记空间
+site_url: https://duniang818.github.io/
+site_author: Coco Wang
+theme:
+  name: material
+#  name: readthedocs
+

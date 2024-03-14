@@ -15,3 +15,7 @@ For full documentation visit [mkdocs.org](https://www.mkdocs.org).
     docs/
         index.md  # The documentation homepage.
         ...       # Other markdown pages, images and other files.
+## mkdocs+githubpages
+
+在有mkdocs.yml文件目录下运行下面命令
+mkdocs serve  
